@@ -15,6 +15,8 @@ import {
 
 const router = express.Router();
 
+router.post("/v1/book-ticket",(req,res)=>{
+  res.status(200).send({message:"Ticket Booked Successfully"});});
 router.post("/v1/register", signupController);
 router.post("/v1/login", signinController);
 

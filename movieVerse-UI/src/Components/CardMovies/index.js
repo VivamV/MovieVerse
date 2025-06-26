@@ -1,8 +1,9 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {img_300, img_not_available} from '../../Config';
+import { useNavigate } from 'react-router-dom';
 const CardMoviesComponents = ({data,mediaType})=>{
-  
+    const navigate=useNavigate();
 
     const title = data.original_title || data.name;
     const id = data.id;
@@ -10,7 +11,12 @@ const CardMoviesComponents = ({data,mediaType})=>{
     const media_type = data.media_type ? data.media_type : data.type ? data.type : mediaType;
     const release_date =  data.release_date || data.first_air_date;
     const vote_average = parseInt(data.vote_average);
-    const original_language = data.original_language || ''
+    const original_language = data.original_language || '';
+
+     const handleTicketBooking=()=>{
+    //some portal should open,
+     navigate(`/book/${id}/${media_type}`, { state: { title, id, media_type } });
+}
     return (
         <>
             <div className='col-xl-2 col-lg-3 col-md-4 col-sm-6 col-6'>
@@ -39,6 +45,7 @@ const CardMoviesComponents = ({data,mediaType})=>{
                         </h3>
                     </div>
                 </Link>
+                 <button onClick={()=>handleTicketBooking(id)}>Book</button>
             </div>
         </>
     )

@@ -8,7 +8,7 @@ import DetailsContainer from '../Container/Details';
 import MoviesContainer from '../Container/Movies';
 import TvSeriesContainer from '../Container/TvSeries';
 import SearchContainer from '../Container/Search';
-
+import TicketBookingPage from '../Components/TicketBookingPage';
 const  RouteComponent = ()=>{
 
     return (
@@ -21,6 +21,7 @@ const  RouteComponent = ()=>{
                         <Route path="/series" element={<TvSeriesContainer />} />
                         <Route path="/search" element={<SearchContainer />} />
                         <Route path="/details/:movieid/:mediatype" element={<DetailsContainer />} />
+                        <Route path="/book/:movieId/:mediaType" element={<TicketBookingPage />} />
                     </Routes>        
                 <FooterComponent />
             </BrowserRouter>

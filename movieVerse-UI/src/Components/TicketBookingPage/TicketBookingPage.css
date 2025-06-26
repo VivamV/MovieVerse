@@ -1,0 +1,32 @@
+.book-page {
+  padding: 40px;
+  text-align: center;
+}
+
+.seats-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+  justify-content: center;
+  max-width: 400px;
+  margin: 30px auto;
+}
+
+.seat {
+  background-color: #ccc;
+  padding: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.seat.selected {
+  background-color: #4caf50;
+  color: white;
+}
+
+.actions button {
+  padding: 12px 24px;
+  font-size: 16px;
+  margin-top: 20px;
+}
