@@ -12,11 +12,147 @@ import {
   likecontroller
   ,updateBlog
 } from "../controllers/blogController.js";
+import redisClient from "../config/redisClient.js";
 
 const router = express.Router();
 
-router.post("/v1/book-ticket",(req,res)=>{
-  res.status(200).send({message:"Ticket Booked Successfully"});});
+import { BookingModel } from "../models/userSchema.js";
+
+//Get Reserverd Seats
+router.get('/v1/booked-seats', async (req, res) => {
+  const { movieId, showTime } = req.query;
+
+  try {
+    // 👉 1. Fetch permanently booked from DB
+    const bookings = await BookingModel.find({
+      movieId,
+      showTime
+    });
+
+    const reservedSeatsFromDB = bookings.flatMap(b => b.seats);
+
+    // 👉 2. Fetch temp locked seats from Redis for all users
+    const keys = await redisClient.keys(`lock:${movieId}:*`);
+    const redisSeats = [];
+
+    for (const key of keys) {
+      const value = await redisClient.get(key);
+      if (value) {
+        redisSeats.push(...JSON.parse(value));
+      }
+    }
+
+    const allReservedSeats = [...new Set([...reservedSeatsFromDB, ...redisSeats])];
+
+    res.status(200).json({ reservedSeats: allReservedSeats });
+  } catch (error) {
+    console.error("Fetch Reserved Seats Error:", error);
+    res.status(500).json({ message: "Error fetching reserved seats" });
+  }
+});
+
+
+router.post('/v1/finalize-booking', async (req, res) => {
+  const { movieId, title, seats, showTime, userId, mediaType } = req.body;
+
+  try {
+    const alreadyBooked = await BookingModel.find({
+      movieId,
+      showTime,
+      seats: { $in: seats }
+    });
+
+    if (alreadyBooked.length > 0) {
+      return res.status(409).json({ message: "Some seats are already booked." });
+    }
+
+    const newBooking = new BookingModel({
+      movieId,
+      title,
+      seats,
+      showTime,
+      mediaType,
+      userId
+    });
+
+    await newBooking.save();
+
+    // 🔥 Only delete this user's lock
+    const redisKey = `lock:${movieId}:${userId}`;
+    await redisClient.del(redisKey);
+
+    res.status(200).json({ message: "Booking successful" });
+  } catch (error) {
+    console.error("Booking Error:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+
+router.post('/v1/book-ticket', async (req, res) => {
+  const { movieId, seats, userId } = req.body;
+
+  console.log("Request received in book-ticket", req.body);
+
+  const key = `lock:${movieId}:${userId}`;
+
+  const existing = await redisClient.get(key);
+
+  if (existing) {
+    return res.status(409).json({ message: 'Seats already locked by you.' });
+  }
+
+  await redisClient.set(key, JSON.stringify(seats), { EX: 300, NX: true });
+
+  res.status(200).json({ message: 'Seats locked.' });
+});
+
+
+
+router.delete('v1/clear-redis', async (req, res) => {
+  try {
+    await redisClient.flushAll(); // Same as FLUSHALL in redis-cli
+    res.status(200).json({ message: 'All Redis keys cleared.' });
+  } catch (err) {
+    console.error('Redis flush error:', err);
+    res.status(500).json({ message: 'Failed to clear Redis keys.' });
+  }
+});
+router.get('/v1/get-redis', async (req, res) => {
+  try {
+    const keys = await redisClient.keys('*'); // Gets all keys
+
+    const pipeline = redisClient.multi();
+    keys.forEach(key => pipeline.get(key)); // Fetches values for each key
+
+    const values = await pipeline.exec(); // Executes the pipeline
+
+    // Combine keys and values into an object
+    const result = keys.reduce((acc, key, index) => {
+      acc[key] = values[index];
+      return acc;
+    }, {});
+
+    res.status(200).json(result);
+  } catch (err) {
+    console.error('Redis fetch error:', err);
+    res.status(500).json({ message: 'Failed to fetch Redis keys and values.' });
+  }
+});
+
+// router.post("/v1/finalize-booking", async (req, res) => {
+//   const { movieId, seats } = req.body;
+//   const redisKey = `lock:${movieId}`;
+
+//   // Save to database (mocked here)
+//   await db.bookings.insertOne({ movieId, seats });
+
+//   // Clear the lock
+//   await redis.del(redisKey);
+//   res.status(200).json({ message: "Ticket Booked Successfully" });
+// });
+
+
 router.post("/v1/register", signupController);
 router.post("/v1/login", signinController);
 

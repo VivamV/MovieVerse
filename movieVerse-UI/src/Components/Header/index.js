@@ -4,7 +4,12 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie'
+import axios from 'axios';
+
 const HeaderComponent = ()=>{
+    const navigate=useNavigate();
     const navData = [
         {name:'Home', link:'/'},
         {name:'Movies', link:'/movies'},
@@ -12,6 +17,31 @@ const HeaderComponent = ()=>{
         {name:'Search', link:'/search'},
     ]
 
+    const handleLogout = () => {
+        // setShowProfile(false);
+        localStorage.removeItem("userin")
+        Cookies.remove('token');        
+        navigate("/")
+        // console.log('Logged out');
+      };
+      const clearRedis = async () => {
+        try {
+          const res = await axios.delete("http://localhost:4000/v1/clear-redis");
+          console.log("Redis cleared:", res.data.message);
+        } catch (error) {
+          console.error("Error clearing Redis:", error.response?.data || error.message);
+        }
+      };
+      
+      const getRedis = async () => {
+        try {
+          const res = await axios.get("http://localhost:4000/v1/get-redis");
+          console.log("Redis data received:", res.data);
+        } catch (error) {
+          console.error("Error fetching Redis data:", error.response?.data || error.message);
+        }
+      };
+      
     return (
         <header  className='header'>
             <Navbar bg="dark" expand="lg">
@@ -34,6 +64,10 @@ const HeaderComponent = ()=>{
                             })
                         }
                     </Nav>
+                    <button onClick={handleLogout}>Logout</button>
+                    {/* these two buttons are for testng purposes only ,i would delete them later */}
+                    <button onClick={clearRedis}>ClearRedis</button>
+                    <button onClick={getRedis}>GetRedis</button>
                     </Navbar.Collapse>
                 </Container>
             </Navbar>

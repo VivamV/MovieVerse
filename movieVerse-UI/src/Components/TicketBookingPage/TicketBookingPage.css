@@ -1,32 +1,89 @@
 .book-page {
   padding: 40px;
   text-align: center;
+  background-color: #f7f7f7;
+  min-height: 100vh;
+}
+
+.screen {
+  background-color: #444;
+  color: white;
+  padding: 10px 0;
+  margin: 20px auto;
+  width: 60%;
+  border-radius: 6px;
+  font-weight: bold;
+  letter-spacing: 2px;
 }
 
 .seats-grid {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(10, 1fr);
   gap: 10px;
   justify-content: center;
-  max-width: 400px;
+  max-width: 600px;
   margin: 30px auto;
 }
 
-.seat {
-  background-color: #ccc;
-  padding: 10px;
-  border-radius: 6px;
+/* .seat {
+  background-color: #e0e0e0;
+  padding: 10px 5px;
+  border-radius: 4px;
+  font-size: 12px;
   cursor: pointer;
-  font-weight: bold;
+  text-align: center;
+  font-weight: 500;
+  border: 1px solid #bbb;
+  transition: all 0.2s ease;
+} */
+.seat {
+  padding: 10px;
+  border: 1px solid #999;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 5px;
+  width: 40px;
+  text-align: center;
 }
 
 .seat.selected {
-  background-color: #4caf50;
+  background-color: green;
   color: white;
 }
 
+.seat.reserved {
+  background-color: red;
+  color: white;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+
+.seat:hover {
+  background-color: #cfcfcf;
+}
+
+/* .seat.selected {
+  background-color: #4caf50;
+  color: white;
+  font-weight: bold;
+} */
+
+.actions {
+  margin-top: 30px;
+}
+
 .actions button {
-  padding: 12px 24px;
+  padding: 12px 30px;
   font-size: 16px;
-  margin-top: 20px;
+  background-color: #ff3b30;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.actions button:disabled {
+  background-color: #aaa;
+  cursor: not-allowed;
 }
