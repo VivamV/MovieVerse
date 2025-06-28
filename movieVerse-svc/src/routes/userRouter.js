@@ -20,13 +20,13 @@ import { BookingModel } from "../models/userSchema.js";
 
 //Get Reserverd Seats
 router.get('/v1/booked-seats', async (req, res) => {
-  const { movieId, showTime } = req.query;
+  const { movieId } = req.query;
 
   try {
     // 👉 1. Fetch permanently booked from DB
     const bookings = await BookingModel.find({
       movieId,
-      showTime
+      // showTime
     });
 
     const reservedSeatsFromDB = bookings.flatMap(b => b.seats);
@@ -53,12 +53,19 @@ router.get('/v1/booked-seats', async (req, res) => {
 
 
 router.post('/v1/finalize-booking', async (req, res) => {
-  const { movieId, title, seats, showTime, userId, mediaType } = req.body;
+  const { movieId, title, seats, userId, mediaType } = req.body;
 
   try {
+    const redisKey = `lock:${movieId}:${userId}`;
+
+    // ❗ Check if Redis key still exists
+    const exists = await redisClient.exists(redisKey);
+    if (!exists) {
+      return res.status(401).json({ message: "⏰ Session Timeout. You were inactive too long. Please select seats again." });
+    }
+
     const alreadyBooked = await BookingModel.find({
       movieId,
-      showTime,
       seats: { $in: seats }
     });
 
@@ -70,15 +77,13 @@ router.post('/v1/finalize-booking', async (req, res) => {
       movieId,
       title,
       seats,
-      showTime,
       mediaType,
       userId
     });
 
     await newBooking.save();
 
-    // 🔥 Only delete this user's lock
-    const redisKey = `lock:${movieId}:${userId}`;
+    // 🔥 Delete only this user's lock
     await redisClient.del(redisKey);
 
     res.status(200).json({ message: "Booking successful" });
@@ -87,6 +92,7 @@ router.post('/v1/finalize-booking', async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 });
+
 
 
 router.post('/v1/book-ticket', async (req, res) => {
@@ -107,9 +113,20 @@ router.post('/v1/book-ticket', async (req, res) => {
   res.status(200).json({ message: 'Seats locked.' });
 });
 
+// /v1/clear-lock
+router.post('/v1/clear-lock', async (req, res) => {
+  const { movieId, userId } = req.body;
+  try {
+    await redisClient.del(`lock:${movieId}:${userId}`);
+    res.status(200).json({ message: 'Lock cleared' });
+  } catch (err) {
+    console.error('Error clearing lock:', err);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
 
 
-router.delete('v1/clear-redis', async (req, res) => {
+router.delete('/v1/clear-redis', async (req, res) => {
   try {
     await redisClient.flushAll(); // Same as FLUSHALL in redis-cli
     res.status(200).json({ message: 'All Redis keys cleared.' });

@@ -33,7 +33,7 @@ const bookingSchema = new Schema({
   mediaType: String,
   showTime: {
     type: Date,
-    required: true,
+    // required: true,
   },
   seats: {
     type: [String], // e.g., ['A1', 'A2']

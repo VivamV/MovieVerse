@@ -10,7 +10,7 @@ const TicketBookingPage = () => {
     const navigate = useNavigate();
 
     const title = location.state?.title || 'Unknown Movie';
-    const showTime = new Date().toISOString(); // optional: pass timestamp for identifying a show
+    // const showTime = new Date().toISOString(); // optional: pass timestamp for identifying a show
     const rows = 5;
     const cols = 10;
     const totalSeats = rows * cols;
@@ -25,7 +25,7 @@ const TicketBookingPage = () => {
                 const res = await axios.get(`http://localhost:4000/v1/booked-seats`, {
                     params: {
                         movieId,
-                        showTime
+                        // showTime
                     }
                 });
                 setReservedSeats(res.data.reservedSeats || []);
@@ -34,7 +34,7 @@ const TicketBookingPage = () => {
             }
         };
         fetchReservedSeats();
-    }, [movieId, showTime]);
+    }, [movieId]);
 
     const toggleSeat = (seat) => {
         if (reservedSeats.includes(seat)) return; // can't toggle reserved seat
@@ -47,33 +47,48 @@ const TicketBookingPage = () => {
     };
 
     const handleBooking = async () => {
-        const userId=getUserId();
-        try {
-            const res = await axios.post('http://localhost:4000/v1/book-ticket', {
-                movieId,
-                title,
-                seats: selectedSeats,
-                showTime,
-                mediaType,
-                userId
-            });
+    const userId = getUserId();
 
-            if (res.status === 200) {
-                navigate('/final-payment', {
-                    state: {
-                        movieId,
-                        title,
-                        selectedSeats,
-                        showTime,
-                        userId
-                    },
-                });
-            }
-        } catch (err) {
-            alert('Booking failed. Seat might already be taken.');
-            console.error(err);
+    try {
+        // ✅ Step 1: Re-fetch reserved seats
+        const reservedRes = await axios.get(`http://localhost:4000/v1/booked-seats`, {
+            params: { movieId }
+        });
+        const latestReserved = reservedRes.data.reservedSeats || [];
+
+        // ✅ Step 2: Check for overlap
+        const conflict = selectedSeats.some(seat => latestReserved.includes(seat));
+        if (conflict) {
+            // ✅ Show modal instead of navigating
+            alert("❌ Some of the seats you selected have already been booked by someone else.\nPlease refresh and select different seats.");
+            return;
         }
-    };
+
+        // ✅ Step 3: Proceed with booking
+        const res = await axios.post('http://localhost:4000/v1/book-ticket', {
+            movieId,
+            title,
+            seats: selectedSeats,
+            mediaType,
+            userId
+        });
+
+        if (res.status === 200) {
+            navigate('/final-payment', {
+                state: {
+                    movieId,
+                    title,
+                    selectedSeats,
+                    userId
+                },
+            });
+        }
+    } catch (err) {
+        alert('Booking failed. Seat might already be taken.');
+        console.error(err);
+    }
+};
+
 
     return (
         <div className="book-page">
