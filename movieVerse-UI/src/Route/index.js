@@ -13,6 +13,7 @@ import FinalPaymentPage from '../Components/FinalPaymentPage';
 import LoginForm from '../Components/LoginForm';
 import SignupForm from '../Components/SignupForm';
 import ProtectedRoutes from './ProtectedRoutes';
+import NoMatch from '../Container/NotFound';
 const  RouteComponent = ()=>{
 
     return (
@@ -30,6 +31,7 @@ const  RouteComponent = ()=>{
                         <Route path="/details/:movieid/:mediatype" element={<DetailsContainer />} />
                         <Route path="/book/:movieId/:mediaType" element={<TicketBookingPage />} />
                         <Route path="/final-payment" element={<FinalPaymentPage />} />
+                        <Route path="*" element={<NoMatch />} />
                     </Route>
                     </Routes>        
                 <FooterComponent />

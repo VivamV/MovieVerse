@@ -19,11 +19,10 @@ const router = express.Router();
 import { BookingModel } from "../models/userSchema.js";
 
 //Get Reserverd Seats
-router.get('/v1/booked-seats', async (req, res) => {
+router.get('/v1/booked-seats',auth, async (req, res) => {
   const { movieId } = req.query;
 
   try {
-    // 👉 1. Fetch permanently booked from DB
     const bookings = await BookingModel.find({
       movieId,
       // showTime
@@ -31,7 +30,6 @@ router.get('/v1/booked-seats', async (req, res) => {
 
     const reservedSeatsFromDB = bookings.flatMap(b => b.seats);
 
-    // 👉 2. Fetch temp locked seats from Redis for all users
     const keys = await redisClient.keys(`lock:${movieId}:*`);
     const redisSeats = [];
 
@@ -52,13 +50,12 @@ router.get('/v1/booked-seats', async (req, res) => {
 });
 
 
-router.post('/v1/finalize-booking', async (req, res) => {
-  const { movieId, title, seats, userId, mediaType } = req.body;
+router.post('/v1/finalize-booking',auth, async (req, res) => {
+  const { movieId, title, seats, userId, mediaType,sessionId } = req.body;
 
   try {
-    const redisKey = `lock:${movieId}:${userId}`;
+    const redisKey = `lock:${movieId}:${userId}:${sessionId}`;
 
-    // ❗ Check if Redis key still exists
     const exists = await redisClient.exists(redisKey);
     if (!exists) {
       return res.status(401).json({ message: "⏰ Session Timeout. You were inactive too long. Please select seats again." });
@@ -83,7 +80,6 @@ router.post('/v1/finalize-booking', async (req, res) => {
 
     await newBooking.save();
 
-    // 🔥 Delete only this user's lock
     await redisClient.del(redisKey);
 
     res.status(200).json({ message: "Booking successful" });
@@ -95,12 +91,12 @@ router.post('/v1/finalize-booking', async (req, res) => {
 
 
 
-router.post('/v1/book-ticket', async (req, res) => {
-  const { movieId, seats, userId } = req.body;
+router.post('/v1/book-ticket',auth, async (req, res) => {
+  const { movieId, seats, userId,sessionId } = req.body;
 
   console.log("Request received in book-ticket", req.body);
 
-  const key = `lock:${movieId}:${userId}`;
+  const key = `lock:${movieId}:${userId}:${sessionId}`;
 
   const existing = await redisClient.get(key);
 
@@ -108,16 +104,16 @@ router.post('/v1/book-ticket', async (req, res) => {
     return res.status(409).json({ message: 'Seats already locked by you.' });
   }
 
-  await redisClient.set(key, JSON.stringify(seats), { EX: 300, NX: true });
+  await redisClient.set(key, JSON.stringify(seats), { EX: 60, NX: true });
 
   res.status(200).json({ message: 'Seats locked.' });
 });
 
-// /v1/clear-lock
-router.post('/v1/clear-lock', async (req, res) => {
-  const { movieId, userId } = req.body;
+
+router.post('/v1/clear-lock',auth, async (req, res) => {
+  const { movieId, userId,sessionId } = req.body;
   try {
-    await redisClient.del(`lock:${movieId}:${userId}`);
+    await redisClient.del(`lock:${movieId}:${userId}:${sessionId}`);
     res.status(200).json({ message: 'Lock cleared' });
   } catch (err) {
     console.error('Error clearing lock:', err);
@@ -126,25 +122,24 @@ router.post('/v1/clear-lock', async (req, res) => {
 });
 
 
-router.delete('/v1/clear-redis', async (req, res) => {
+router.delete('/v1/clear-redis',auth, async (req, res) => {
   try {
-    await redisClient.flushAll(); // Same as FLUSHALL in redis-cli
+    await redisClient.flushAll(); 
     res.status(200).json({ message: 'All Redis keys cleared.' });
   } catch (err) {
     console.error('Redis flush error:', err);
     res.status(500).json({ message: 'Failed to clear Redis keys.' });
   }
 });
-router.get('/v1/get-redis', async (req, res) => {
+router.get('/v1/get-redis',auth, async (req, res) => {
   try {
-    const keys = await redisClient.keys('*'); // Gets all keys
+    const keys = await redisClient.keys('*'); 
 
     const pipeline = redisClient.multi();
-    keys.forEach(key => pipeline.get(key)); // Fetches values for each key
+    keys.forEach(key => pipeline.get(key)); 
 
-    const values = await pipeline.exec(); // Executes the pipeline
+    const values = await pipeline.exec(); 
 
-    // Combine keys and values into an object
     const result = keys.reduce((acc, key, index) => {
       acc[key] = values[index];
       return acc;
@@ -155,6 +150,13 @@ router.get('/v1/get-redis', async (req, res) => {
     console.error('Redis fetch error:', err);
     res.status(500).json({ message: 'Failed to fetch Redis keys and values.' });
   }
+});
+router.post('/v1/logout',auth, (req, res) => {
+  res.clearCookie('token', {
+    httpOnly: true,
+    sameSite: 'Strict',
+  });
+  res.status(200).json({ message: 'Logged out' });
 });
 
 // router.post("/v1/finalize-booking", async (req, res) => {

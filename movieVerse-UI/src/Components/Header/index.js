@@ -17,12 +17,18 @@ const HeaderComponent = ()=>{
         {name:'Search', link:'/search'},
     ]
 
-    const handleLogout = () => {
-        // setShowProfile(false);
-        localStorage.removeItem("userin")
-        Cookies.remove('token');        
-        navigate("/")
-        // console.log('Logged out');
+    const handleLogout =async () => {
+ try {
+    await axios.post('http://localhost:4000/v1/logout', {}, {
+      withCredentials: true, 
+    });
+
+    localStorage.removeItem("userDetails");
+    sessionStorage.removeItem("bookingSessionId");
+    navigate('/');
+  } catch (error) {
+    console.error('Logout failed:', error);
+  }
       };
       const clearRedis = async () => {
         try {
@@ -35,7 +41,9 @@ const HeaderComponent = ()=>{
       
       const getRedis = async () => {
         try {
-          const res = await axios.get("http://localhost:4000/v1/get-redis");
+          const res = await axios.get("http://localhost:4000/v1/get-redis",{
+  withCredentials: true 
+});
           console.log("Redis data received:", res.data);
         } catch (error) {
           console.error("Error fetching Redis data:", error.response?.data || error.message);

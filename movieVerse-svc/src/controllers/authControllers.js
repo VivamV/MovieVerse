@@ -4,8 +4,13 @@ import { userModel } from "../models/userSchema.js";
 import Cookies from 'js-cookie'
 
 export const signupController = async (req, res) => {
-  const { fullname, email, password } = req.body;
+  const { fullname, email, password, confirmPassword } = req.body;
+
   try {
+    if (password !== confirmPassword) {
+      return res.status(400).send({ message: "Passwords don't match" });
+    }
+
     const existingUser = await userModel.findOne({ email: email });
 
     if (existingUser) {
@@ -13,15 +18,15 @@ export const signupController = async (req, res) => {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-     await userModel.create({
-      fullname: fullname,
-      email: email,
+    await userModel.create({
+      fullname,
+      email,
       password: hashedPassword,
-      // profileimageURL:profileimagePath
     });
-    res.status(201).send({ message: "User registered successfully" });
+
+    res.status(201).send({ message: "User registered successfully", user: true });
   } catch (error) {
-    res.status(500).send({ message: "Something went wrong,can't register"});
+    res.status(500).send({ message: "Something went wrong, can't register" });
   }
 };
 
@@ -44,9 +49,15 @@ console.log("macth",matchPassword);
         { expiresIn: '50m' }
     );
     console.log("tokenn",token)
-    res.cookie('token', token);
-    Cookies.set('token',token)
-    res.status(201).json({ user: existingUser, token: token });
+res.cookie('token', token, {
+  httpOnly: true,
+  sameSite: 'Strict',
+});
+    // Cookies.set('token',token)
+    const userDetails={
+      userId:existingUser._id
+    }
+    res.status(201).json({ user: userDetails });
   } catch (error) {
     res.status(500).json({ message: "Something went wrong" });
   }

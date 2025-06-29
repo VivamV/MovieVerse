@@ -8,45 +8,11 @@ import React from 'react';
 // import app from '../utils/firebase';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import sha256 from 'crypto-js/sha256'; // npm install crypto-js
+import Hex from 'crypto-js/enc-hex';
 
 const SignupForm = () => {
   const navigate = useNavigate();
-//   const [image, setImage] = useState(null);
-//   const [imageperc, setImageperc] = useState(0);
-//   const [blogData, setBlogData] = useState({});
-
-//   useEffect(() => {
-//     if (image) {
-//       uploadFile(image);
-//     }
-//   }, [image]);
-
-//   const uploadFile = (file) => {
-//     const storage = getStorage(app);
-//     const fileName = new Date().getTime() + file.name;
-//     const storageRef = ref(storage, 'profileimages/' + fileName);
-//     const uploadTask = uploadBytesResumable(storageRef, file);
-//     uploadTask.on(
-//       'state_changed',
-//       (snapshot) => {
-//         const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-//         setImageperc(progress);
-//         // console.log('Upload is ' + progress + '% done');
-//       },
-//       (error) => {
-//         // console.log(error);
-//       },
-//       () => {
-//         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-//           // console.log('File available at', downloadURL);
-//           setBlogData((prevData) => ({
-//             ...prevData,
-//             profileimagePath: downloadURL,
-//           }));
-//         });
-//       }
-//     );
-//   };
 
   const formik = useFormik({
     initialValues: {
@@ -72,11 +38,19 @@ const SignupForm = () => {
       confirmPassword: Yup.string()
         .oneOf([Yup.ref('password'), null], 'Passwords must match')
         .required('Confirm password is required'),
-      // image: Yup.mixed().required('Image is required'),
     }),
     onSubmit: async (values) => {
+const hashedPassword = sha256(values.password).toString(Hex);
+    const hashedConfirmPassword = sha256(values.confirmPassword).toString(Hex);
+
+    const payload = {
+      fullname: values.fullname,
+      email: values.email,
+      password: hashedPassword,
+      confirmPassword: hashedConfirmPassword,
+    };
       try {
-        const response = await axios.post('http://localhost:4000/v1/register', { ...values});
+        const response = await axios.post('http://localhost:4000/v1/register', payload);
         // console.log(response.data);
     console.log("response received in register",response)
         if (response.data.user) {

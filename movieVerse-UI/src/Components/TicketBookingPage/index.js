@@ -17,8 +17,31 @@ const TicketBookingPage = () => {
 
     const [selectedSeats, setSelectedSeats] = useState([]);
     const [reservedSeats, setReservedSeats] = useState([]);
+     const sessionId = sessionStorage.getItem("bookingSessionId");
+useEffect(() => {
+  const sessionId = sessionStorage.getItem("bookingSessionId");
+  const userId = getUserId();
 
-    // ✅ Fetch reserved seats on load
+  if (sessionId && movieId && userId) {
+    const clearRedisLock = async () => {
+      try {
+        await axios.post('http://localhost:4000/v1/clear-lock', {
+          movieId,
+          userId,
+          sessionId
+        }, {
+          withCredentials: true,
+        });
+        console.log('Redis lock cleared after back navigation');
+      } catch (err) {
+        console.error("Error clearing redis lock on back", err);
+      }
+    };
+
+    clearRedisLock();
+  }
+}, []);
+
     useEffect(() => {
         const fetchReservedSeats = async () => {
             try {
@@ -26,7 +49,9 @@ const TicketBookingPage = () => {
                     params: {
                         movieId,
                         // showTime
-                    }
+                    
+                    },
+                      withCredentials: true
                 });
                 setReservedSeats(res.data.reservedSeats || []);
             } catch (err) {
@@ -50,27 +75,30 @@ const TicketBookingPage = () => {
     const userId = getUserId();
 
     try {
-        // ✅ Step 1: Re-fetch reserved seats
+
         const reservedRes = await axios.get(`http://localhost:4000/v1/booked-seats`, {
-            params: { movieId }
+            params: { movieId },
+              withCredentials: true
         });
         const latestReserved = reservedRes.data.reservedSeats || [];
 
-        // ✅ Step 2: Check for overlap
         const conflict = selectedSeats.some(seat => latestReserved.includes(seat));
         if (conflict) {
-            // ✅ Show modal instead of navigating
             alert("❌ Some of the seats you selected have already been booked by someone else.\nPlease refresh and select different seats.");
             return;
         }
 
-        // ✅ Step 3: Proceed with booking
         const res = await axios.post('http://localhost:4000/v1/book-ticket', {
             movieId,
             title,
             seats: selectedSeats,
             mediaType,
-            userId
+            userId,
+            sessionId
+        },
+            {
+  withCredentials: true,
+
         });
 
         if (res.status === 200) {
@@ -79,7 +107,9 @@ const TicketBookingPage = () => {
                     movieId,
                     title,
                     selectedSeats,
-                    userId
+                    userId,
+                    fromBooking:true,   
+                    sessionId
                 },
             });
         }
@@ -88,7 +118,6 @@ const TicketBookingPage = () => {
         console.error(err);
     }
 };
-
 
     return (
         <div className="book-page">

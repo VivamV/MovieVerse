@@ -7,7 +7,7 @@ const ProtectedRoutes=()=>{
 //   useEffect(()=>{
       //  setUser(SavedValue._id);
 //   })
-   const  user = JSON.parse(localStorage.getItem("userin"));
+   const  user = JSON.parse(localStorage.getItem("userDetails"));
 
   return user ? <Outlet/> : <Navigate to="/"/>
 }

@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React,{useEffect} from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Link, useNavigate } from 'react-router-dom';
@@ -8,9 +8,13 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import sha256 from 'crypto-js/sha256'; // npm install crypto-js
+import Hex from 'crypto-js/enc-hex';
+import { v4 as uuidv4 } from 'uuid'; // npm install uuid
 
 const LoginForm = () => {
 
+const sessionId = uuidv4();
   const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
@@ -30,17 +34,23 @@ const LoginForm = () => {
     }),
     onSubmit: async (values) => {
       try {
-        const response = await axios.post('http://localhost:4000/v1/login', values);
+        const hashedPassword = sha256(values.password).toString(Hex);
+        const payload={
+          email:values.email,
+          password:hashedPassword
+        }
+        const response = await axios.post('http://localhost:4000/v1/login', payload, {
+  withCredentials: true,
+});
         // console.log("login",response.data);
         // console.log("login ke time par toekn le lia",response.data.token);
         // console.log(response.data.user);
         // console.log("login message",response.data.message);
         if (response.data.user) {
           
-          localStorage.setItem("userin", JSON.stringify(response.data.user));
-
-          localStorage.setItem("usertoken", JSON.stringify(response.data.token));
-          Cookies.set('token', response.data.token);
+          localStorage.setItem("userDetails", JSON.stringify(response.data.user));
+          sessionStorage.setItem("bookingSessionId", sessionId);
+          // Cookies.set('token', response.data.token);
           navigate('/home');
         } 
         else if(response.data.message==="User Not found"){
@@ -59,6 +69,15 @@ const LoginForm = () => {
       }
     },
   });
+useEffect(() => {
+  // const tokenExists = document.cookie.includes('token');
+  const user = localStorage.getItem('userDetails');
+  console.log("token exists userIn",user);
+  if (user) {
+    sessionStorage.setItem("bookingSessionId", sessionId);
+    navigate('/home');
+  }
+}, []);
 
   return (
     <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
