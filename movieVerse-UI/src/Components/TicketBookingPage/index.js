@@ -3,6 +3,7 @@ import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import './TicketBookingPage.css';
 import getUserId from '../../utils/getUserId';
+import { toast } from 'react-toastify';
 
 const TicketBookingPage = () => {
     const { movieId, mediaType } = useParams();
@@ -34,6 +35,18 @@ useEffect(() => {
         });
         console.log('Redis lock cleared after back navigation');
       } catch (err) {
+                const status = err.response?.status;
+                const message = err.response?.data?.message;
+
+                 if (status === 401) {
+                   toast.error(" Unauthorized. Please log in again.");
+                     navigate('/'); 
+                } else if (status === 403) {
+                   toast.error(" Session expired. Please sign in again.");
+                   navigate('/');
+                 } else {
+                    toast.error(message);
+                   }
         console.error("Error clearing redis lock on back", err);
       }
     };
@@ -55,7 +68,19 @@ useEffect(() => {
                 });
                 setReservedSeats(res.data.reservedSeats || []);
             } catch (err) {
-                console.error('Failed to fetch reserved seats:', err);
+                const status = err.response?.status;
+                const message = err.response?.data?.message;
+
+                 if (status === 401) {
+                   toast.error(" Unauthorized. Please log in again.");
+                     navigate('/'); 
+                } else if (status === 403) {
+                   toast.error(" Session expired. Please sign in again.");
+                   navigate('/');
+                 } else{
+                    toast.error(message );
+                   }
+                   console.error('Failed to fetch reserved seats:', err);
             }
         };
         fetchReservedSeats();
@@ -97,7 +122,7 @@ useEffect(() => {
             sessionId
         },
             {
-  withCredentials: true,
+            withCredentials: true,
 
         });
 
@@ -114,6 +139,22 @@ useEffect(() => {
             });
         }
     } catch (err) {
+              const status = err.response?.status;
+              const message = err.response?.data?.message;
+
+                 if (status === 401) {
+                   toast.error(" Unauthorized. Please log in again.");
+                   navigate('/'); 
+                } else if (status === 403) {
+                   toast.error(" Session expired. Please sign in again.");
+                   navigate('/');
+                 }
+                 else if(status === 409) {
+                    toast.error(message);
+                 }
+                 else {
+                    toast.error(message);
+                   }
         alert('Booking failed. Seat might already be taken.');
         console.error(err);
     }

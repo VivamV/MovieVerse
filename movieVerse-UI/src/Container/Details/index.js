@@ -21,6 +21,8 @@ const DetailsContainer = ()=>{
     const id = params.movieid || '';
     const _media_type = params && params.mediatype &&  params.mediatype !== '' ? params.mediatype.toLowerCase() : '';
     const API_KEY = process.env.REACT_APP_NOT_SECRET_CODE;
+    console.log("api key in UI/secret code", API_KEY);
+    console.log("REACT_APP_API_KEY this is", process.env.REACT_APP_API_KEY);
 
     const fetchData = async () =>{
         try{

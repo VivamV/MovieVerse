@@ -14,11 +14,14 @@ import LoginForm from '../Components/LoginForm';
 import SignupForm from '../Components/SignupForm';
 import ProtectedRoutes from './ProtectedRoutes';
 import NoMatch from '../Container/NotFound';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const  RouteComponent = ()=>{
 
     return (
         <>
             <BrowserRouter>
+                <ToastContainer />
                 <HeaderComponent />
                     <Routes>
                     <Route path="/" element={<LoginForm/>}></Route>

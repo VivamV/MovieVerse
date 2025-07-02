@@ -7,6 +7,10 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie'
 import axios from 'axios';
+import { toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const HeaderComponent = ()=>{
     const navigate=useNavigate();
@@ -19,20 +23,42 @@ const HeaderComponent = ()=>{
 
     const handleLogout =async () => {
  try {
+  console.log("logout before")
     await axios.post('http://localhost:4000/v1/logout', {}, {
       withCredentials: true, 
     });
-
+ console.log("logout")
     localStorage.removeItem("userDetails");
     sessionStorage.removeItem("bookingSessionId");
     navigate('/');
-  } catch (error) {
-    console.error('Logout failed:', error);
+  } catch (err) {
+    /*case when suppose token is expired or unauthorised token jwt,then logout will return error so if we dont remove
+    userDetails and and booking SessionId,but cookies remaining as it is removed on server then it is a issue,
+    one resolution is remove auth middleware from logout route
+    "*/
+      localStorage.removeItem("userDetails");
+    sessionStorage.removeItem("bookingSessionId");
+    console.log("err",err.response)
+               const status = err.response?.status;
+                    const message = err.response?.data?.message;
+    console.log("statsus",status)
+                     if (status === 401) {
+                       toast.error(" Unauthorized. Please log in again.");
+                         navigate('/'); 
+                    } else if (status === 403) {
+                      console.log("status",status)
+                       toast.error(" Session expired. Please sign in again.");
+                       navigate('/');
+                     } else{
+                        toast.error(message );
+                       }
+
+    console.error('Logout failed:', err);
   }
       };
       const clearRedis = async () => {
         try {
-          const res = await axios.delete("http://localhost:4000/v1/clear-redis");
+          const res = await axios.delete("http://localhost:4000/admin/clear-redis",{withCredentials:true});
           console.log("Redis cleared:", res.data.message);
         } catch (error) {
           console.error("Error clearing Redis:", error.response?.data || error.message);
@@ -41,7 +67,7 @@ const HeaderComponent = ()=>{
       
       const getRedis = async () => {
         try {
-          const res = await axios.get("http://localhost:4000/v1/get-redis",{
+          const res = await axios.get("http://localhost:4000/admin/get-redis",{
   withCredentials: true 
 });
           console.log("Redis data received:", res.data);
@@ -52,6 +78,7 @@ const HeaderComponent = ()=>{
       
     return (
         <header  className='header'>
+          <ToastContainer />
             <Navbar bg="dark" expand="lg">
                 <Container>
                     <Navbar.Brand>MovieVerse</Navbar.Brand>

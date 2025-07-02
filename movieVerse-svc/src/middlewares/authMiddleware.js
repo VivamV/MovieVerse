@@ -3,13 +3,14 @@ import jwt from 'jsonwebtoken';
 
 const auth = (req, res, next) => {
 console.log("req cookies token",req.cookies.token)
+
 const token = req.cookies.token;
 // const token = req.headers.authorization?.split(' ')[1];
   if (!token) {
     return res.status(401).json({ message: "Token is required" });
   }
   try {
-    const decoded = jwt.verify(token, 'sec');
+    const decoded = jwt.verify(token,process.env.SECRET_KEY);
     req.user = decoded; 
     return next();
   } catch (err) {

@@ -51,27 +51,27 @@ const bookingSchema = new Schema({
 
 export const BookingModel = mongoose.model('Booking', bookingSchema);
 
-const postSchema = new Schema({
-  movieId:{
-    type: Schema.Types.ObjectId,
-    ref: 'User',
-    required:true
-  },
-    imageURL: {
-      type: String,
-    },
-    caption: {
-      type: String,
-      required:true
-    },
+// const postSchema = new Schema({
+//   movieId:{
+//     type: Schema.Types.ObjectId,
+//     ref: 'User',
+//     required:true
+//   },
+//     imageURL: {
+//       type: String,
+//     },
+//     caption: {
+//       type: String,
+//       required:true
+//     },
    
-    likes: [{
-      type: Schema.Types.ObjectId,
-      ref: 'User'
-    }],
-    createdAt: {
-      type: Date,
-      default: Date.now
-    }
-  });
-export const postsModel = mongoose.model('Post', postSchema);
+//     likes: [{
+//       type: Schema.Types.ObjectId,
+//       ref: 'User'
+//     }],
+//     createdAt: {
+//       type: Date,
+//       default: Date.now
+//     }
+//   });
+// export const postsModel = mongoose.model('Post', postSchema);

@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { userModel } from "../models/userSchema.js";
-import Cookies from 'js-cookie'
+// import Cookies from "js-cookie";
 
 export const signupController = async (req, res) => {
   const { fullname, email, password, confirmPassword } = req.body;
@@ -24,7 +24,9 @@ export const signupController = async (req, res) => {
       password: hashedPassword,
     });
 
-    res.status(201).send({ message: "User registered successfully", user: true });
+    res
+      .status(201)
+      .send({ message: "User registered successfully", user: true });
   } catch (error) {
     res.status(500).send({ message: "Something went wrong, can't register" });
   }
@@ -41,25 +43,29 @@ export const signinController = async (req, res) => {
     if (!matchPassword) {
       return res.json({ message: "Invalid credentials" });
     }
-console.log("macth",matchPassword);
     const token = jwt.sign(
       { email: existingUser.email, id: existingUser._id },
-      // process.env.SECRET_KEY, 
-      "sec",
-        { expiresIn: '50m' }
+      process.env.SECRET_KEY,
+      { expiresIn: "50m" }
     );
-    console.log("tokenn",token)
-res.cookie('token', token, {
-  httpOnly: true,
-  sameSite: 'Strict',
-});
+    res.cookie("token", token, {
+      httpOnly: true,
+      sameSite: "Strict",
+    });
     // Cookies.set('token',token)
-    const userDetails={
-      userId:existingUser._id
-    }
+    const userDetails = {
+      userId: existingUser._id,
+    };
     res.status(201).json({ user: userDetails });
   } catch (error) {
     res.status(500).json({ message: "Something went wrong" });
   }
 };
 
+export const logoutController = async (req, res) => {
+  res.clearCookie("token", {
+    httpOnly: true,
+    sameSite: "Strict",
+  });
+  res.status(200).json({ message: "Logged out" });
+};

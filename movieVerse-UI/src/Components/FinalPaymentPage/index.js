@@ -3,13 +3,14 @@
 import React ,{useEffect} from 'react';
 import { useLocation, useNavigate,Navigate } from 'react-router-dom';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const FinalPaymentPage = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const { movieId, title, selectedSeats,userId,fromBooking,sessionId } = location.state || {};
     console.log("locaton.staate",location.state);
-   console.log("fromBooking",fromBooking)
+    console.log("fromBooking",fromBooking)
 
 
     const clearRedisLock = async () => {
@@ -19,11 +20,23 @@ const FinalPaymentPage = () => {
                 userId,
                 sessionId
             },{
-  withCredentials: true,
-});
+             withCredentials: true,
+             });
             // lockCleared.current = true;
             console.log('Lock cleared');
         } catch (err) {
+             const status = err.response?.status;
+            //  const message = err.response?.data?.message;
+            if (status === 401) {
+                toast.error(" Unauthorized. Please log in again.");
+                navigate('/'); 
+            } else if(status === 403) {
+                toast.error(" Session expired. Please sign in again.");
+                navigate('/');
+            }
+            else {
+                alert("Something went wrong. Please try again.");
+            }
             console.error('Failed to clear lock', err);
         }
     };
@@ -95,28 +108,40 @@ const handleBeforeUnload = async (e) => {
                 seats: selectedSeats,
                 userId,
                 sessionId
-            },{
-  withCredentials: true,
-});
+            },{ withCredentials: true,});
 
             if (res.status === 200) {
+                toast.success("Payment successful and booking confirmed!");
                 alert('Payment successful and booking confirmed!');
                 navigate('/home');
             }
         }
         catch (err) {
         if (err.response) {
-            const { status, data } = err.response;
+             const status = err.response?.status;
+             const message = err.response?.data?.message;
             if (status === 401) {
-                alert(`⏰ ${data.message}`);
-                navigate('/home'); // or force refresh to go back to seat selection
-            } else if (status === 409) {
-                alert(`❌ ${data.message}`);
+                toast.error(" Unauthorized. Please log in again.");
+                navigate('/'); 
+            } else if(status === 403) {
+                toast.error(" Session expired. Please sign in again.");
+                navigate('/');
+            }
+            else if (status === 409) {
+                toast.error(message);
+                alert(`${message}`);
                 navigate('/home');
-            } else {
+            } 
+            else if(status === 419){
+                toast.error(message);
+                alert(` ${message}`);
+                navigate('/home');
+            }
+            else {
                 alert("Something went wrong. Please try again.");
             }
-        } else {
+        } 
+        else {
             alert("Unable to reach server.");
         }
         console.error(err);
