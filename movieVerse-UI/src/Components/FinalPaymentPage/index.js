@@ -1,14 +1,34 @@
 // src/pages/FinalPaymentPage.jsx
 
-import React ,{useEffect} from 'react';
+import React ,{useEffect,useState} from 'react';
 import { useLocation, useNavigate,Navigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import useLogout from '../../Hooks/useLogout';
 
 const FinalPaymentPage = () => {
+    const [loading,setLoading]=useState(false)
     const location = useLocation();
     const navigate = useNavigate();
-    const { movieId, title, selectedSeats,userId,fromBooking,sessionId } = location.state || {};
+    const logout=useLogout();
+//    coming from ticket booking
+                    // movieId,
+                    // movieTitle,
+                    // selectedSeats,
+                    // userId,
+                    // fromBooking:true,   
+                    // sessionId,
+                    // date,
+                    // theatre,
+                    // theatreId,
+                    // showTime,
+                    // city
+
+    const { movieId, movieTitle, selectedSeats,userId,fromBooking,sessionId,date,
+                    theatre,
+                    theatreId,
+                    showTime,
+                    city } = location.state || {};
     console.log("locaton.staate",location.state);
     console.log("fromBooking",fromBooking)
 
@@ -29,10 +49,12 @@ const FinalPaymentPage = () => {
             //  const message = err.response?.data?.message;
             if (status === 401) {
                 toast.error(" Unauthorized. Please log in again.");
-                navigate('/'); 
+                // navigate('/'); 
+                logout();
             } else if(status === 403) {
                 toast.error(" Session expired. Please sign in again.");
-                navigate('/');
+                // navigate('/');
+                logout();
             }
             else {
                 alert("Something went wrong. Please try again.");
@@ -101,18 +123,26 @@ const handleBeforeUnload = async (e) => {
     return <Navigate to="/home" replace />;
   }
     const handlePayment = async () => {
+        setLoading(true);
         try {
              const res = await axios.post('http://localhost:4000/v1/finalize-booking', {
                 movieId,
-                title,
+                movieTitle,
                 seats: selectedSeats,
                 userId,
-                sessionId
+                sessionId,
+                date,
+                theatre,
+                theatreId,
+                showTime,
+                city
             },{ withCredentials: true,});
 
             if (res.status === 200) {
+                
                 toast.success("Payment successful and booking confirmed!");
                 alert('Payment successful and booking confirmed!');
+                setLoading(false);
                 navigate('/home');
             }
         }
@@ -122,10 +152,12 @@ const handleBeforeUnload = async (e) => {
              const message = err.response?.data?.message;
             if (status === 401) {
                 toast.error(" Unauthorized. Please log in again.");
-                navigate('/'); 
+                // navigate('/'); 
+                logout();
             } else if(status === 403) {
                 toast.error(" Session expired. Please sign in again.");
-                navigate('/');
+                // navigate('/');
+                logout();
             }
             else if (status === 409) {
                 toast.error(message);
@@ -146,6 +178,9 @@ const handleBeforeUnload = async (e) => {
         }
         console.error(err);
     }
+    finally {
+        setLoading(false);
+    }
     };
 
     return (
@@ -165,14 +200,19 @@ const handleBeforeUnload = async (e) => {
                  Back
             </button>
             <h2>Final Payment</h2>
-            <p><strong>Movie:</strong> {title}</p>
+            <p><strong>Movie:</strong> {movieTitle}</p>
             <p><strong>Seats:</strong> {selectedSeats.join(', ')}</p>
+            <p><strong>Date:</strong> {date}</p>
+            <p><strong>Theatre:</strong> {theatre}</p>
+            <p><strong>City:</strong> {city}</p>
+               <p><strong>Show Time:</strong>{showTime}</p>
             {/* <p><strong>Show Time:</strong> {new Date(showTime).toLocaleString()}</p> */}
             <button
                 onClick={handlePayment}
                 style={{ padding: '14px 30px', fontSize: '16px', background: '#28a745', color: '#fff', border: 'none', borderRadius: '6px' }}
-            >
-                Make Payment
+             disabled={loading}
+           >
+              {loading ?'Payment Processing..':"Make Payment"}
             </button>
         </div>
     );

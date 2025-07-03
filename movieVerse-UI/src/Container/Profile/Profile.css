@@ -1,0 +1,31 @@
+.profile-page {
+  background-color: #2b2b31;
+  color: rgba(255, 255, 255, 0.85);
+  min-height: 100vh;
+  padding: 2rem;
+  font-family: sans-serif;
+}
+
+h2, h3 {
+  color: #ffffff;
+  margin-bottom: 1rem;
+}
+
+.user-details, .booking-card {
+  background-color: #3a3a41;
+  padding: 1rem;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.booking-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+p {
+  margin: 0.3rem 0;
+  font-size: 0.95rem;
+}

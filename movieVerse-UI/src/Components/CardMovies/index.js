@@ -15,7 +15,9 @@ const CardMoviesComponents = ({data,mediaType})=>{
 
      const handleTicketBooking=()=>{
     //some portal should open,
-     navigate(`/book/${id}/${media_type}`, { state: { title, id, media_type } });
+    // const movieTitle=title;
+    const movieId=id;
+     navigate(`/theatre-booking/${movieId}/${media_type}`, { state: { movieTitle:title, movieId, media_type } });
 }
     return (
         <>

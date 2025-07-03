@@ -35,23 +35,30 @@ export const signupController = async (req, res) => {
 export const signinController = async (req, res) => {
   const { email, password } = req.body;
   try {
+    console.log("signinController");
     const existingUser = await userModel.findOne({ email: email });
     if (!existingUser) {
       return res.json({ message: "User Not found" });
     }
+    console.log("before mavh password",existingUser.password)
     const matchPassword = await bcrypt.compare(password, existingUser.password);
+    console.log("after match password",matchPassword)
     if (!matchPassword) {
+      console.log("matchPassword",matchPassword)
       return res.json({ message: "Invalid credentials" });
     }
+    console.log("before token",matchPassword)
     const token = jwt.sign(
       { email: existingUser.email, id: existingUser._id },
       process.env.SECRET_KEY,
-      { expiresIn: "50m" }
+      { expiresIn: "10s" }
     );
+    console.log("after token",token)
     res.cookie("token", token, {
       httpOnly: true,
       sameSite: "Strict",
     });
+    console.log("after setting cookie")
     // Cookies.set('token',token)
     const userDetails = {
       userId: existingUser._id,

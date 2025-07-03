@@ -4,14 +4,24 @@ import axios from 'axios';
 import './TicketBookingPage.css';
 import getUserId from '../../utils/getUserId';
 import { toast } from 'react-toastify';
+import useLogout from '../../Hooks/useLogout';
 
 const TicketBookingPage = () => {
+    const [loading,setloading] = useState(false);
     const { movieId, mediaType } = useParams();
     const location = useLocation();
     const navigate = useNavigate();
-
-    const title = location.state?.title || 'Unknown Movie';
-    // const showTime = new Date().toISOString(); // optional: pass timestamp for identifying a show
+    const logout=useLogout();
+      const { movieTitle,date,theatre,theatreId,showTime,city } = location.state;
+// coming from theatre booking page
+        //   movieTitle,
+        // movieId,
+        // media_type,
+        // date: today,
+        // theatre: theatre.name,
+        // theatreId: theatre.id,
+        // showTime,
+        // city:location
     const rows = 5;
     const cols = 10;
     const totalSeats = rows * cols;
@@ -19,6 +29,7 @@ const TicketBookingPage = () => {
     const [selectedSeats, setSelectedSeats] = useState([]);
     const [reservedSeats, setReservedSeats] = useState([]);
      const sessionId = sessionStorage.getItem("bookingSessionId");
+
 useEffect(() => {
   const sessionId = sessionStorage.getItem("bookingSessionId");
   const userId = getUserId();
@@ -39,11 +50,14 @@ useEffect(() => {
                 const message = err.response?.data?.message;
 
                  if (status === 401) {
-                   toast.error(" Unauthorized. Please log in again.");
-                     navigate('/'); 
+                   
+                   toast.error(" Unauthorized inside clearRedisLock of useEffect(TicketBooking). Please log in again.");
+                //    navigate('/'); 
+                   logout();
                 } else if (status === 403) {
-                   toast.error(" Session expired. Please sign in again.");
-                   navigate('/');
+                   toast.error(" Session expired inside clearRedisLock of useEffect(TicketBooking). Please sign in again.");
+                //    navigate('/');
+                logout();
                  } else {
                     toast.error(message);
                    }
@@ -61,9 +75,12 @@ useEffect(() => {
                 const res = await axios.get(`http://localhost:4000/v1/booked-seats`, {
                     params: {
                         movieId,
-                        // showTime
-                    
+                        date,
+                        // theatre,
+                        theatreId,
+                        showTime
                     },
+                    
                       withCredentials: true
                 });
                 setReservedSeats(res.data.reservedSeats || []);
@@ -72,11 +89,13 @@ useEffect(() => {
                 const message = err.response?.data?.message;
 
                  if (status === 401) {
-                   toast.error(" Unauthorized. Please log in again.");
-                     navigate('/'); 
+                   toast.error(" Unauthorized inside fetchReservedSeats in useEffect(ticketbooking). Please log in again.");
+                    //  navigate('/'); 
+                    logout();
                 } else if (status === 403) {
-                   toast.error(" Session expired. Please sign in again.");
-                   navigate('/');
+                   toast.error(" Session expired inside fetchReservedSeats in useEffect(ticketbooking). Please sign in again.");
+                //    navigate('/');
+                logout();
                  } else{
                     toast.error(message );
                    }
@@ -98,28 +117,38 @@ useEffect(() => {
 
     const handleBooking = async () => {
     const userId = getUserId();
-
+    setloading(true)
     try {
 
         const reservedRes = await axios.get(`http://localhost:4000/v1/booked-seats`, {
-            params: { movieId },
+            params: { movieId,
+                      date,
+                        // theatre,
+                    theatreId,
+                    showTime 
+                    },
               withCredentials: true
         });
         const latestReserved = reservedRes.data.reservedSeats || [];
 
         const conflict = selectedSeats.some(seat => latestReserved.includes(seat));
         if (conflict) {
+            setloading(false);
             alert("❌ Some of the seats you selected have already been booked by someone else.\nPlease refresh and select different seats.");
             return;
         }
 
         const res = await axios.post('http://localhost:4000/v1/book-ticket', {
             movieId,
-            title,
+            movieTitle,
             seats: selectedSeats,
             mediaType,
             userId,
-            sessionId
+            sessionId,
+            date,
+            theatre,
+            theatreId,
+            showTime,
         },
             {
             withCredentials: true,
@@ -130,24 +159,32 @@ useEffect(() => {
             navigate('/final-payment', {
                 state: {
                     movieId,
-                    title,
+                    movieTitle,
                     selectedSeats,
                     userId,
                     fromBooking:true,   
-                    sessionId
+                    sessionId,
+                    date,
+                    theatre,
+                    theatreId,
+                    showTime,
+                    city
                 },
             });
+            setloading(false);
         }
     } catch (err) {
               const status = err.response?.status;
               const message = err.response?.data?.message;
 
                  if (status === 401) {
-                   toast.error(" Unauthorized. Please log in again.");
-                   navigate('/'); 
+                   toast.error(" Unauthorized inside handleBooking function(ticketbooking) for book seats and book ticket both. Please log in again.");
+                //    navigate('/'); 
+                   logout();
                 } else if (status === 403) {
-                   toast.error(" Session expired. Please sign in again.");
-                   navigate('/');
+                   toast.error(" Session expired inside handleBooking function(ticketbooking) for book seats and book ticket both. . Please sign in again.");
+                //    navigate('/');
+                logout();
                  }
                  else if(status === 409) {
                     toast.error(message);
@@ -158,11 +195,14 @@ useEffect(() => {
         alert('Booking failed. Seat might already be taken.');
         console.error(err);
     }
+    finally {
+    setloading(false); // stop loader regardless of result
+  }
 };
 
     return (
         <div className="book-page">
-            <h2>Select Seats for {title}</h2>
+            <h2>Select Seats for {movieTitle}</h2>
             <div className="screen">SCREEN</div>
             <div className="seats-grid">
                 {Array.from({ length: totalSeats }, (_, i) => {
@@ -185,8 +225,8 @@ useEffect(() => {
             </div>
 
             <div className="actions">
-                <button onClick={handleBooking} disabled={selectedSeats.length === 0}>
-                    Proceed to Payment
+                <button onClick={handleBooking} disabled={selectedSeats.length === 0 || loading}>
+                  { loading?"Processing..": "Proceed to Payment"}
                 </button>
             </div>
         </div>

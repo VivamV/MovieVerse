@@ -29,11 +29,17 @@ const bookingSchema = new Schema({
     type: String,
     required: true,
   },
-  title: String,
-  mediaType: String,
-  showTime: {
-    type: Date,
-    // required: true,
+  movieTitle: {
+    type: String,
+    required: true,
+  },
+  theatreId:{
+    type: String,
+    required: true,
+  },
+  theatreName: {
+    type: String,
+    required: true,
   },
   seats: {
     type: [String], // e.g., ['A1', 'A2']
@@ -41,8 +47,21 @@ const bookingSchema = new Schema({
   },
   userId: {
     type: Schema.Types.ObjectId,
-    ref: 'User', // optional: if you want to associate booking with a user
+    ref: 'User', 
   },
+  city:{
+    type:String,
+    required:true
+  },
+  showTime: {
+    type: String,
+    required: true,
+  },
+    date: {
+    type: String,
+    required: true,
+  },
+  // mediaType: String,
   createdAt: {
     type: Date,
     default: Date.now
