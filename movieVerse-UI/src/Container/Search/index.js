@@ -21,13 +21,11 @@ const  SearchContainer = ()=>{
     const GetDataTrending = async ()=>{
         
         const {data} = await axios.get(`https://api.themoviedb.org/3/search/${typeValue}?api_key=${API_KEY}&page=${pageno}&language=en-US&query=${searchValue}&include_adult=false`);
-        console.log('data', data.results)
         setContent(data.results);
         setPaginationno(data.total_pages);
     }
 
     useEffect(()=>{
-        console.log('Trending Component did mount');
         GetDataTrending();
         //eslint-disable-next-line
     }, [])
@@ -40,8 +38,8 @@ const  SearchContainer = ()=>{
     const handleClick = (number)=>{
         setPageno(number);
     }
+    
     useEffect(()=>{
-        console.log('Trending Component didupdate mount');
         GetDataTrending();
         //eslint-disable-next-line
     }, [pageno])

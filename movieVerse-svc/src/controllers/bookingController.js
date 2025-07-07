@@ -1,110 +1,201 @@
-
-import { BookingModel,userModel } from "../models/userSchema.js";
+import { userModel } from "../models/userSchema.js";
+import { BookingModel } from "../models/bookingSchema.js";
 import redisClient from "../config/redisClient.js";
-import nodemailer from 'nodemailer';
+// import nodemailer from 'nodemailer';
 export const getReserverdSeats = async (req, res) => {
   // coming in req.query->movieId,
   //                     date,
   //                   theatreId,
-  //                   showTime 
- const { movieId,      date,
-                        theatreId,
-                        showTime } = req.query;
+  //                   showTime
+  const { movieId, date, theatreId, showTime } = req.query;
   try {
+    if (!movieId || !date || !theatreId || !showTime) {
+      return res
+        .status(400)
+        .json({ message: "Missing required query parameters" });
+    }
     const bookings = await BookingModel.find({
       movieId,
       theatreId,
       date,
-      showTime
+      showTime,
     });
 
-    const reservedSeatsFromDB = bookings.flatMap(b => b.seats);
-    const redisKeyPattern = `lock:${movieId}:*:*:${date}:${theatreId}:${showTime}`;
-    const keys = await redisClient.keys(redisKeyPattern);
+    const reservedSeatsFromDB = bookings.flatMap((b) => b.seats);
+
+    const formattedDate = new Date(date).toISOString().split("T")[0];
+    const trimmedTheatreId = theatreId.trim().toLowerCase();
+    const trimmedShowTime = showTime.trim().toLowerCase();
+
+    const redisKeyPattern = `lock|${movieId}|*|*|${formattedDate}|${trimmedTheatreId}|${trimmedShowTime}`;
+
+    let cursor = "0";
     const redisSeats = [];
 
-    for (const key of keys) {
-      const value = await redisClient.get(key);
-      if (value) {
-        redisSeats.push(...JSON.parse(value));
-      }
-    }
+    do {
+      const result = await redisClient.scan(cursor, {
+        match: redisKeyPattern,
+        count: 100,
+      });
 
-    const allReservedSeats = [...new Set([...reservedSeatsFromDB, ...redisSeats])];
+      cursor = result.cursor;
+
+      for (const key of result.keys) {
+        const parts = key.split("|");
+        const redisMovieId = parts[1];
+
+        const redisTheatreId = parts[5];
+        const redisShowTime = parts[6];
+        const redisDate = parts[4];
+        // console.log("redisMovieId",redisMovieId);
+        // console.log("redisTheatreId",redisTheatreId);
+        // console.log("redisShowTime",redisShowTime);
+        // console.log("redisDate",redisDate);
+        // console.log("theatreId in getReservedSeats",trimmedTheatreId);
+        // console.log("showTime in getReservedSeats",trimmedShowTime);
+        // console.log("date in getReservedSeats",formattedDate);
+        if (
+          redisTheatreId !== trimmedTheatreId ||
+          redisShowTime !== trimmedShowTime ||
+          redisDate !== formattedDate ||
+          redisMovieId !== movieId
+        ) {
+          // console.log("Skipping key due to mismatch:", key);
+          continue;
+        }
+
+        const value = await redisClient.get(key);
+        if (value) {
+          redisSeats.push(...JSON.parse(value));
+        }
+      }
+    } while (cursor !== "0");
+
+    const allReservedSeats = [
+      ...new Set([...reservedSeatsFromDB, ...redisSeats]),
+    ];
 
     res.status(200).json({ reservedSeats: allReservedSeats });
   } catch (error) {
     console.error("Fetch Reserved Seats Error:", error);
-    res.status(500).json({ message: "Error fetching reserved seats" });
+    res
+      .status(500)
+      .json({ message: "Something Went Wrong while fetching reserved seats" });
   }
 };
 
 export const lockSeats = async (req, res) => {
- try
- { 
-  // comiing in req.body
-            // movieId,
-            // movieTitle,->faltu
-            // seats: selectedSeats,
-            // mediaType,->faltu
-            // userId,
-            // sessionId,
-            // date,
-            // theatre,->faltu
-            // theatreId,
-            // showTime,
-  const { movieId, seats, userId,sessionId, date,
-                        theatreId,
-                        showTime
-                       } = req.body;
+  try {
+    // comiing in req.body
+    // movieId,
+    // movieTitle,->faltu
+    // seats: selectedSeats,
+    // mediaType,->faltu
+    // userId,
+    // sessionId,
+    // date,
+    // theatre,->faltu
+    // theatreId,
+    // showTime,
+    const { movieId, seats, userId, sessionId, date, theatreId, showTime } =
+      req.body;
 
-  console.log("Request received in book-ticket", req.body);
+    if (
+      !movieId ||
+      !Array.isArray(seats) ||
+      seats.length === 0 ||
+      !userId ||
+      !sessionId ||
+      !date ||
+      !theatreId ||
+      !showTime
+    ) {
+      return res
+        .status(400)
+        .json({ message: "Missing or invalid booking data" });
+    }
 
-  const key = `lock:${movieId}:${userId}:${sessionId}:${date}:${theatreId}:${showTime}`;
+    const formattedDate = new Date(date).toISOString().split("T")[0];
+    const trimmedTheatreId = theatreId.trim().toLowerCase();
+    const trimmedShowTime = showTime.trim().toLowerCase();
 
-  const existing = await redisClient.get(key);
+    const key = `lock|${movieId}|${userId}|${sessionId}|${formattedDate}|${trimmedTheatreId}|${trimmedShowTime}`;
 
-  if (existing) {
-    return res.status(409).json({ message: 'Seats already locked by you.' });
-  }
+    const existing = await redisClient.get(key);
 
-  await redisClient.set(key, JSON.stringify(seats), { EX: 60, NX: true });
+    if (existing) {
+      return res
+        .status(409)
+        .json({ message: "Seats already locked by you,Please Refresh" });
+    }
 
-  res.status(200).json({ message: 'Seats locked.' });
-}
-catch (err) {
-    console.error('Error locking seats:', err);
-    res.status(500).json({ message: 'Server error' });
+    await redisClient.set(key, JSON.stringify(seats), { EX: 60, NX: true });
+
+    res.status(200).json({ message: "Seats locked." });
+  } catch (err) {
+    console.error("Error locking seats:", err);
+    res.status(500).json({
+      message: "Server error,Something went wrong while Locking seats",
+    });
   }
 };
 
 export const finalBooking = async (req, res) => {
-
-// coming in req.body
-                // movieId,
-                // movieTitle,
-                // seats: selectedSeats,
-                // userId,
-                // sessionId,
-                // date,
-                // theatre,
-                // theatreId,
-                // showTime,
-                // city
-const { movieId, movieTitle, seats, userId,sessionId,
-                date,
-                theatre,
-                theatreId,
-                showTime,
-                city,
- } = req.body;
+  // coming in req.body
+  // movieId,
+  // movieTitle,
+  // seats: selectedSeats,
+  // userId,
+  // sessionId,
+  // date,
+  // theatre,
+  // theatreId,
+  // showTime,
+  // city
+  const {
+    movieId,
+    movieTitle,
+    seats,
+    userId,
+    sessionId,
+    date,
+    theatre,
+    theatreId,
+    showTime,
+    city,
+  } = req.body;
 
   try {
-    const redisKey = `lock:${movieId}:${userId}:${sessionId}:${date}:${theatreId}:${showTime}`;
+    if (
+      !movieId ||
+      !seats ||
+      !userId ||
+      !sessionId ||
+      !date ||
+      !theatreId ||
+      !showTime ||
+      !city ||
+      !movieTitle ||
+      !theatre
+    ) {
+      return res
+        .status(400)
+        .json({ message: "Missing required booking fields" });
+    }
+
+    
+    const formattedDate = new Date(date).toISOString().split("T")[0];
+    const trimmedTheatreId = theatreId.trim().toLowerCase();
+    const trimmedShowTime = showTime.trim().toLowerCase();
+
+    const redisKey = `lock|${movieId}|${userId}|${sessionId}|${formattedDate}|${trimmedTheatreId}|${trimmedShowTime}`;
 
     const exists = await redisClient.exists(redisKey);
     if (!exists) {
-      return res.status(419).json({ message: "Session Timeout. You were inactive too long. Please select seats again." });
+      return res.status(419).json({
+        message:
+          "Session Timeout. You were inactive too long. Please select seats again.",
+      });
     }
 
     const alreadyBooked = await BookingModel.find({
@@ -112,11 +203,13 @@ const { movieId, movieTitle, seats, userId,sessionId,
       seats: { $in: seats },
       theatreId,
       date,
-      showTime
+      showTime,
     });
 
     if (alreadyBooked.length > 0) {
-      return res.status(409).json({ message: "Some seats are already booked." });
+      return res
+        .status(409)
+        .json({ message: "Some seats are already booked." });
     }
 
     const newBooking = new BookingModel({
@@ -128,7 +221,7 @@ const { movieId, movieTitle, seats, userId,sessionId,
       theatreId,
       city,
       date,
-      showTime
+      showTime,
     });
 
     await newBooking.save();
@@ -137,20 +230,20 @@ const { movieId, movieTitle, seats, userId,sessionId,
 
     // send confirmation email to user
     // const user = await userModel.findById(userId);
-    // console.log("process.env.EMAIL_USER",process.env.EMAIL_USER)
+
     // if (user && user.email) {
     //   const transporter = nodemailer.createTransport({
     //     service: 'gmail',
     //     auth: {
-    //       user: process.env.EMAIL_USER, // e.g. your_email@gmail.com
-    //       pass: process.env.EMAIL_PASS  // use App Password or env var
+    //       user: process.env.EMAIL_USER,
+    //       pass: process.env.EMAIL_PASS
     //     }
     //   });
 
     //   const mailOptions = {
     //     from: process.env.EMAIL_USER,
     //     to: user.email,
-    //     subject: '🎟️ Your Movie Ticket is Confirmed!',
+    //     subject: 'Your Movie Ticket is Confirmed!',
     //     html: `
     //       <h3>Hello ${user.fullname},</h3>
     //       <p>Your ticket has been successfully booked for <strong>${movieTitle}</strong>.</p>
@@ -160,66 +253,83 @@ const { movieId, movieTitle, seats, userId,sessionId,
     //         <li><strong>Theatre:</strong> ${theatre}, ${city}</li>
     //         <li><strong>Seats:</strong> ${seats.join(', ')}</li>
     //       </ul>
-    //       <p>Enjoy your movie! 🍿</p>
+    //       <p>Enjoy your movie! </p>
     //     `
     //   };
 
     //   await transporter.sendMail(mailOptions);
     // }
 
-
     res.status(200).json({ message: "Booking successful" });
   } catch (error) {
     console.error("Booking Error:", error);
-    res.status(500).json({ message: "Server error" });
+    res.status(500).json({
+      message: "Server error,Something went wrong can't book yout ticket",
+    });
   }
 };
 
-// export const deleteLock=async (req, res) => {
-//   const { movieId, userId,sessionId } = req.body;
-//   try {
-//     await redisClient.del(`lock:${movieId}:${userId}:${sessionId}:*`);
-//     res.status(200).json({ message: 'Lock cleared' });
-//   } catch (err) {
-//     console.error('Error clearing lock:', err);
-//     res.status(500).json({ message: 'Server error' });
-//   }
-// }
 export const deleteLock = async (req, res) => {
   // coming in req.body -> movieId, userId, sessionId
   const { movieId, userId, sessionId } = req.body;
-
   try {
-    // Step 1: Find all matching keys (based on movieId, userId, sessionId)
-    const pattern = `lock:${movieId}:${userId}:${sessionId}:*`;
-    const keys = await redisClient.keys(pattern);
-
-    if (keys.length === 0) {
-      return res.status(200).json({ message: 'No locks found to clear.' });
+    if (!movieId || !userId || !sessionId) {
+      return res.status(400).json({ message: "Missing required fields" });
     }
+    const pattern = `lock|${movieId}|${userId}|${sessionId}|*`;
+    let cursor = "0";
+    let keysToDelete = [];
 
-    // Step 2: Delete each matching lock
-    await Promise.all(keys.map(key => redisClient.del(key)));
+    do {
+      const result = await redisClient.scan(cursor, {
+        match: pattern,
+        count: 100,
+      });
 
-    res.status(200).json({ message: 'Lock(s) cleared' });
+      cursor = result.cursor;
+
+      const filteredKeys = result.keys.filter((key) => {
+        const parts = key.split("|");
+        return (
+          parts[0] === "lock" &&
+          parts[1] === movieId &&
+          parts[2] === userId &&
+          parts[3] === sessionId
+        );
+      });
+
+      keysToDelete.push(...filteredKeys);
+    } while (cursor !== "0");
+
+    if (keysToDelete.length === 0) {
+      return res.status(200).json({ message: "No locks found to clear." });
+    }
+    await Promise.all(keysToDelete.map((key) => redisClient.del(key)));
+    res.status(200).json({ message: "Lock cleared" });
   } catch (err) {
-    console.error('Error clearing lock:', err);
-    res.status(500).json({ message: 'Server error' });
+    console.error("Error clearing lock:", err);
+    res.status(500).json({
+      message: "Server error,Something went wrong while clearing Lock",
+    });
   }
 };
 
-export const getProfileDetails=async(req,res)=>{
+export const getProfileDetails = async (req, res) => {
   const { userId } = req.query;
 
   try {
-    // Fetch user info (excluding password)
-    const user = await userModel.findById(userId).select('-password');
+    if (!userId) {
+      return res.status(400).json({ message: "User ID is required" });
+    }
+
+    const user = await userModel.findById(userId).select("-password");
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // Fetch all bookings made by the user
-    const bookings = await BookingModel.find({ userId }).sort({ createdAt: -1 });
+    const bookings = await BookingModel.find({ userId }).sort({
+      createdAt: -1,
+    });
 
     res.status(200).json({
       user,
@@ -227,6 +337,8 @@ export const getProfileDetails=async(req,res)=>{
     });
   } catch (error) {
     console.error("Error fetching profile details:", error);
-    res.status(500).json({ message: "Server error while fetching profile details" });
+    res
+      .status(500)
+      .json({ message: "Server error while fetching profile details" });
   }
-}
+};

@@ -1,8 +1,8 @@
 .theatre-page {
   padding: 40px;
   min-height: 100vh;
-  background-color: #2b2b31; /* global dark theme */
-  color: rgba(255, 255, 255, 0.75); /* global text color */
+  background-color: #2b2b31; 
+  color: rgba(255, 255, 255, 0.75); 
 }
 
 .theatre-page h2 {

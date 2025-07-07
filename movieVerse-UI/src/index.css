@@ -244,3 +244,29 @@ body {
 .pd50{
   padding:50px 0;
 }
+
+.book-btn {
+  padding: 8px 16px;
+  margin-top: 8px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.book-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.book-btn.closed {
+  background-color: #6c757d; 
+  color: white;
+}
+
+.book-btn.coming-soon {
+  background-color: #ffc107; 
+  color: black;
+}

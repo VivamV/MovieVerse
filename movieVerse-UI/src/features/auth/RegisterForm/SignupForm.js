@@ -1,43 +1,51 @@
-import React from 'react';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
-import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
-import sha256 from 'crypto-js/sha256';
-import Hex from 'crypto-js/enc-hex';
-import './SignupForm.css'; 
+import React from "react";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import sha256 from "crypto-js/sha256";
+import Hex from "crypto-js/enc-hex";
+import "./SignupForm.css";
+import { register } from "../../../api/authAPI";
 
 const SignupForm = () => {
   const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
-      fullname: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
+      fullname: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
     },
     validationSchema: Yup.object({
       fullname: Yup.string()
-        .min(3, 'Full name must be at least 3 characters long')
-        .required('Full name is required'),
+        .min(3, "Full name must be at least 3 characters long")
+        .required("Full name is required"),
       email: Yup.string()
-        .email('Invalid email address')
-        .required('Email is required'),
+        .email("Invalid email address")
+        .required("Email is required"),
       password: Yup.string()
-        .min(8, 'Password must be at least 8 characters long')
-        .matches(/[!@#$%^&*]/, 'Password must contain at least one special character')
-        .matches(/[0-9]/, 'Password must contain at least one numeric character')
-        .matches(/[A-Z]/, 'Password must contain at least one uppercase letter')
-        .required('Password is required'),
+        .min(8, "Password must be at least 8 characters long")
+        .matches(
+          /[!@#$%^&*]/,
+          "Password must contain at least one special character"
+        )
+        .matches(
+          /[0-9]/,
+          "Password must contain at least one numeric character"
+        )
+        .matches(/[A-Z]/, "Password must contain at least one uppercase letter")
+        .required("Password is required"),
       confirmPassword: Yup.string()
-        .oneOf([Yup.ref('password'), null], 'Passwords must match')
-        .required('Confirm password is required'),
+        .oneOf([Yup.ref("password"), null], "Passwords must match")
+        .required("Confirm password is required"),
     }),
     onSubmit: async (values) => {
       const hashedPassword = sha256(values.password).toString(Hex);
-      const hashedConfirmPassword = sha256(values.confirmPassword).toString(Hex);
+      const hashedConfirmPassword = sha256(values.confirmPassword).toString(
+        Hex
+      );
 
       const payload = {
         fullname: values.fullname,
@@ -47,17 +55,26 @@ const SignupForm = () => {
       };
 
       try {
-        const response = await axios.post('http://localhost:4000/v1/register', payload);
-        if (response.data.user) {
+        const response = await register(payload);
+        if (response.status === 201) {
           toast.success("User Registered, Please Login with your credentials");
-        } else if (response.data.message === 'User Already exists') {
-          toast.info("User Already exists, Please Login");
+        } else {
+          alert("some unexpected error,cant register,please Register again");
         }
-        setTimeout(() => navigate('/'), 3000);
+        setTimeout(() => navigate("/"), 3000);
       } catch (error) {
-        // console.error('There was an error registering:', error);
-        toast.error("There was a error registering")
-        // alert('There was an error registering');
+        console.error("There was an error registering:", error);
+        const status = error?.response?.status;
+        const message = error?.response?.data?.message;
+
+        if (status === 400 || status === 500) {
+          toast.error(message);
+        } else if (status === 409) {
+          toast.info(message);
+          setTimeout(() => navigate("/"), 3000);
+        } else {
+          alert(message);
+        }
       }
     },
   });
@@ -124,9 +141,10 @@ const SignupForm = () => {
               onBlur={formik.handleBlur}
               required
             />
-            {formik.touched.confirmPassword && formik.errors.confirmPassword && (
-              <div className="error">{formik.errors.confirmPassword}</div>
-            )}
+            {formik.touched.confirmPassword &&
+              formik.errors.confirmPassword && (
+                <div className="error">{formik.errors.confirmPassword}</div>
+              )}
           </div>
 
           <button
@@ -142,7 +160,6 @@ const SignupForm = () => {
           Already registered? <Link to="/">Sign in</Link>
         </p>
       </div>
-      <ToastContainer />
     </div>
   );
 };

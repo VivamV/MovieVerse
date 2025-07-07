@@ -6,7 +6,6 @@ const SearchBarCardComponents = ({searchValue, setSearchValue, typeValue, setTyp
         setSearchValue(e.target.value)
     }
     const chagneValueHandler = (e)=>{
-        console.log(e.target.value)
         setTypeValue(e.target.value)
     }
     const handleSubmit = (e)=>{

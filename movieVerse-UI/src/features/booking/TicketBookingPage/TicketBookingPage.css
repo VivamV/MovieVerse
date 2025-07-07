@@ -1,8 +1,8 @@
 .book-page {
   padding: 40px;
   text-align: center;
-  background-color: #2b2b31; /* match global dark theme */
-  color: rgba(255, 255, 255, 0.75); /* consistent with global */
+  background-color: #2b2b31; 
+  color: rgba(255, 255, 255, 0.75); 
   min-height: 100vh;
 }
 
@@ -27,7 +27,7 @@
 }
 
 .seat {
-  background-color: #444; /* dark seat base */
+  background-color: #444;
   color: #fff;
   padding: 10px;
   border: 1px solid #999;
@@ -44,12 +44,12 @@
 }
 
 .seat.selected {
-  background-color: #4caf50; /* green for selected */
+  background-color: #4caf50; 
   color: #fff;
 }
 
 .seat.reserved {
-  background-color: #e53935; /* red for reserved */
+  background-color: #e53935;
   color: #fff;
   pointer-events: none;
   opacity: 0.6;
@@ -62,7 +62,7 @@
 .actions button {
   padding: 12px 30px;
   font-size: 16px;
-  background-color: #ff5860; /* consistent with global pinkish red */
+  background-color: #ff5860; 
   color: white;
   border: none;
   border-radius: 6px;
