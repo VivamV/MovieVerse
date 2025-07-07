@@ -1,0 +1,80 @@
+.book-page {
+  padding: 40px;
+  text-align: center;
+  background-color: #2b2b31; 
+  color: rgba(255, 255, 255, 0.75); 
+  min-height: 100vh;
+}
+
+.screen {
+  background-color: #444;
+  color: white;
+  padding: 10px 0;
+  margin: 20px auto;
+  width: 60%;
+  border-radius: 6px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.seats-grid {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 10px;
+  justify-content: center;
+  max-width: 600px;
+  margin: 30px auto;
+}
+
+.seat {
+  background-color: #444;
+  color: #fff;
+  padding: 10px;
+  border: 1px solid #999;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 5px;
+  width: 40px;
+  text-align: center;
+  transition: background-color 0.2s ease;
+}
+
+.seat:hover {
+  background-color: #666;
+}
+
+.seat.selected {
+  background-color: #4caf50; 
+  color: #fff;
+}
+
+.seat.reserved {
+  background-color: #e53935;
+  color: #fff;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.actions {
+  margin-top: 30px;
+}
+
+.actions button {
+  padding: 12px 30px;
+  font-size: 16px;
+  background-color: #ff5860; 
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.actions button:hover:not(:disabled) {
+  background-color: #ff2e49;
+}
+
+.actions button:disabled {
+  background-color: #555;
+  cursor: not-allowed;
+}

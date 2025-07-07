@@ -5,7 +5,6 @@ const PaginationComponent = (props)=>{
     const {maxnum, activenum, handleClick} = props
     const forcePageActive = parseInt(activenum) - 1;
     const handlePageClick = (e)=>{
-        console.log('hello', e.selected)
         let pageNo = parseInt(e.selected) + 1
         handleClick(pageNo);
         window.scrollTo(0, 0)

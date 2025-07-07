@@ -16,9 +16,6 @@ const userSchema = new Schema({
     type: String,
     required: [true],
   },
-profileimageURL: {
-  type: String,
-},
   createdAt: {
     type: Date,
     default: Date.now
@@ -26,31 +23,3 @@ profileimageURL: {
 });
 
 export const userModel = mongoose.model('User', userSchema);
-
-const postSchema = new Schema({
-  user:{
-    type: Schema.Types.ObjectId,
-    ref: 'User',
-    required:true
-  },
-    imageURL: {
-      type: String,
-    },
-    caption: {
-      type: String,
-      required:true
-    },
-   
-    likes: [{
-      type: Schema.Types.ObjectId,
-      ref: 'User'
-    }],
-    createdAt: {
-      type: Date,
-      default: Date.now
-    }
-  });
-export const postsModel = mongoose.model('Post', postSchema);
-
-
-

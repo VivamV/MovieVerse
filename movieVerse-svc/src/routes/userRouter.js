@@ -1,34 +1,47 @@
 import express from "express";
 import auth from "../middlewares/authMiddleware.js";
 import {
+  logoutController,
   signinController,
   signupController,
+  refreshTokenController,
+  checkAuthController
 } from "../controllers/authControllers.js";
 import {
-  myBlogs,
-  allBlogs,
-  createBlogs,
-  deletecontroller,
-  likecontroller
-  ,updateBlog
-} from "../controllers/blogController.js";
+  lockSeats,
+  finalBooking,
+  getReserverdSeats,
+  deleteLock,
+  getProfileDetails
+} from "../controllers/bookingController.js";
 
-const router = express.Router();
+const userRouter = express.Router();
 
-router.post("/v1/register", signupController);
-router.post("/v1/login", signinController);
+//healthCheck route
+userRouter.get("/health-check", (req, res) => res.status(200).json({ message: "Server is healthy" }));
+// auth routes
+userRouter.post("/register", signupController);
 
-router.post("/v1/createblogs", auth, createBlogs);
+userRouter.post("/login", signinController);
 
-router.get("/v1/blogs", auth, allBlogs);
+userRouter.post('/logout', logoutController);
 
+userRouter.post('/refresh-token',refreshTokenController);
 
-router.get("/v1/myblogs", auth, myBlogs);
+userRouter.get('/check-auth',auth,checkAuthController);
 
-router.put("/v1/myblogs/:postId", auth, updateBlog);
+// booking routes
+userRouter.get('/booked-seats',auth, getReserverdSeats);
 
-router.delete('/v1/myblogs/:postId',auth,deletecontroller);
+userRouter.post('/book-ticket',auth,lockSeats);
 
-router.post('/v1/like',auth,likecontroller);
+userRouter.post('/finalize-booking',auth,finalBooking);
 
-export default router;
+userRouter.post('/clear-lock',auth,deleteLock);
+
+//userRoutes
+userRouter.get("/profile-details",auth,getProfileDetails);
+
+userRouter.get("/get-user-id",auth,(req,res)=>{res.status(200).json({userId:req.user.id})});
+
+export default userRouter;
