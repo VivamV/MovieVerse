@@ -17,6 +17,8 @@ import {
 
 const userRouter = express.Router();
 
+//healthCheck route
+userRouter.get("/health-check", (req, res) => res.status(200).json({ message: "Server is healthy" }));
 // auth routes
 userRouter.post("/register", signupController);
 
