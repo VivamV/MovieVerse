@@ -24,7 +24,7 @@ Node.js + Express-based backend for **MovieVerse** — a movie ticket booking ap
 ```env
 # Basic server config
 PORT=any port
-NODE_ENV=INT or PROD 
+APP_ENV=INT or PROD 
 
 # JWT secrets
 SECRET_KEY=your_jwt_secret
@@ -46,4 +46,4 @@ MOVIEVERSE_UI_BASE_URL=https://your-ui-url
 ## 🗂️ Branch Strategy
 develop – Base branch for all feature work
 
-prod – Production-ready, stable deployment only
+prod – Production-ready deployment only
