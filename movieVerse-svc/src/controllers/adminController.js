@@ -2,6 +2,7 @@ import redisClient from "../config/redisClient.js";
 
 export const getRedisData = async (req, res) => {
   try {
+    console.log("inside getRedisData Controller:");
     const keys = await redisClient.keys("*");
 
     const pipeline = redisClient.multi();
@@ -23,10 +24,11 @@ export const getRedisData = async (req, res) => {
 
 export const clearRedisData = async (req, res) => {
   try {
+    console.log("inside clearRedisData Controller:");
     await redisClient.flushAll();
     res.status(200).json({ message: "Redis cleared successfully." });
   } catch (err) {
-    console.error("Redis clear error:", err);
-    res.status(500).json({ message: "Failed to clear Redis." });
+    console.error("Redis clear error in clearRedisData:", err);
+    res.status(500).json({ message: "Failed to clear Redis. inside clearRedisData" });
   }
 };

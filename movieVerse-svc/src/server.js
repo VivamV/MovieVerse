@@ -6,6 +6,7 @@ import adminRouter from "./routes/adminRouter..js";
 const app = express();
 
 const serverSetup = () => {
+  console.log("inside serverSetup:MOVIEVERSE_UI_BASE_URL", process.env.MOVIEVERSE_UI_BASE_URL);
   app.use(
     cors({
       origin: process.env.MOVIEVERSE_UI_BASE_URL,

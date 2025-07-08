@@ -6,7 +6,7 @@ import redisClient from "./config/redisClient.js";
 import serverSetup from "./server.js";
 
 const port = process.env.PORT || 4000;
-
+console.log("Port in index file", port,process.env.PORT);
 const startServer = async () => {
   try {
     await dbconnection();

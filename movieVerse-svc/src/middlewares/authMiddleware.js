@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 
 const auth = (req, res, next) => {
-  // console.log("req cookies token", req.cookies.token);
+  console.log("req cookies token", req.cookies.token);
 
   const token = req.cookies.token;
   // const token = req.headers.authorization?.split(' ')[1];
@@ -11,7 +11,7 @@ const auth = (req, res, next) => {
   try {
     const decoded = jwt.verify(token, process.env.SECRET_KEY);
     req.user = decoded;
-    // console.log("req.user", decoded);
+    console.log("req.user", decoded);
     return next();
   } catch (err) {
     return res

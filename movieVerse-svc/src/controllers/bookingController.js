@@ -9,6 +9,7 @@ export const getReserverdSeats = async (req, res) => {
   //                   showTime
   const { movieId, date, theatreId, showTime } = req.query;
   try {
+    console.log("inside getReserverdSeats Controller:");
     if (!movieId || !date || !theatreId || !showTime) {
       return res
         .status(400)
@@ -70,7 +71,7 @@ export const getReserverdSeats = async (req, res) => {
         }
       }
     } while (cursor !== "0");
-
+    console.log("Got RedisSeats in getReservedSeats", redisSeats);
     const allReservedSeats = [
       ...new Set([...reservedSeatsFromDB, ...redisSeats]),
     ];
@@ -99,7 +100,7 @@ export const lockSeats = async (req, res) => {
     // showTime,
     const { movieId, seats, userId, sessionId, date, theatreId, showTime } =
       req.body;
-
+    console.log("inside lockSeats Controller:");
     if (
       !movieId ||
       !Array.isArray(seats) ||
@@ -128,7 +129,7 @@ export const lockSeats = async (req, res) => {
         .status(409)
         .json({ message: "Seats already locked by you,Please Refresh" });
     }
-
+   
     await redisClient.set(key, JSON.stringify(seats), { EX: 60, NX: true });
 
     res.status(200).json({ message: "Seats locked." });
@@ -164,7 +165,7 @@ export const finalBooking = async (req, res) => {
     showTime,
     city,
   } = req.body;
-
+    console.log("inside finalBooking Controller:");
   try {
     if (
       !movieId ||
@@ -273,6 +274,7 @@ export const deleteLock = async (req, res) => {
   // coming in req.body -> movieId, userId, sessionId
   const { movieId, userId, sessionId } = req.body;
   try {
+    console.log("inside deleteLock Controller:");
     if (!movieId || !userId || !sessionId) {
       return res.status(400).json({ message: "Missing required fields" });
     }
@@ -300,7 +302,7 @@ export const deleteLock = async (req, res) => {
 
       keysToDelete.push(...filteredKeys);
     } while (cursor !== "0");
-
+    console.log("keysToDelete in deleteLock Controller:", keysToDelete);
     if (keysToDelete.length === 0) {
       return res.status(200).json({ message: "No locks found to clear." });
     }
@@ -318,6 +320,7 @@ export const getProfileDetails = async (req, res) => {
   const { userId } = req.query;
 
   try {
+    console.log("inside getProfileDetails Controller:",userId);
     if (!userId) {
       return res.status(400).json({ message: "User ID is required" });
     }

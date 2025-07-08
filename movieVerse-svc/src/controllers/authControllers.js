@@ -7,6 +7,7 @@ export const signupController = async (req, res) => {
   const { fullname, email, password, confirmPassword } = req.body;
 
   try {
+    console.log("inside signupController:,NODE_ENV", process.env.NODE_ENV);
     if (!fullname || !email || !password || !confirmPassword) {
       return res
         .status(400)
@@ -25,7 +26,7 @@ export const signupController = async (req, res) => {
         .status(409)
         .json({ message: "User already exists,Please login" });
     }
-
+    console.log("before hashing password in signupController:");
     const hashedPassword = await bcrypt.hash(password, 10);
     await userModel.create({
       fullname,
@@ -43,6 +44,7 @@ export const signupController = async (req, res) => {
 export const signinController = async (req, res) => {
   const { email, password } = req.body;
   try {
+    console.log("inside signinController:", email);
     if (!email || !password) {
       return res
         .status(400)
@@ -60,6 +62,7 @@ export const signinController = async (req, res) => {
     if (!matchPassword) {
       return res.status(401).json({ message: "Invalid Login credentials" });
     }
+    console.log("before setting cookie in signinController:NODE_ENV", process.env.NODE_ENV);
     const token = jwt.sign(
       { email: existingUser.email, id: existingUser._id },
       process.env.SECRET_KEY,
@@ -72,16 +75,23 @@ export const signinController = async (req, res) => {
     );
     res.cookie("token", token, {
       httpOnly: true,
-      sameSite: "Strict",
-      // secure: process.env.NODE_ENV === "production",
+      secure: process.env.NODE_ENV === "PROD" || process.env.NODE_ENV === "INT",
+      sameSite:
+        process.env.NODE_ENV === "PROD" || process.env.NODE_ENV === "INT"
+          ? "None"
+          : "Strict",
       maxAge: 30 * 60 * 1000,
     });
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
-      sameSite: "Strict",
-      // secure: process.env.NODE_ENV === "production",
+      secure: process.env.NODE_ENV === "PROD" || process.env.NODE_ENV === "INT",
+      sameSite:
+        process.env.NODE_ENV === "PROD" || process.env.NODE_ENV === "INT"
+          ? "None"
+          : "Strict",
       maxAge: 2 * 24 * 60 * 60 * 1000,
     });
+    console.log("Cookies set in signinController:");
     // await redisClient.set(`refresh:${existingUser._id}`, refreshToken, { EX:50 });
     const userDetails = {
       userId: existingUser._id,
@@ -94,18 +104,26 @@ export const signinController = async (req, res) => {
 };
 
 export const logoutController = async (req, res) => {
+  console.log("inside logoutController: NODE_env", process.env.NODE_ENV);
+  const isProdOrInt =
+    process.env.NODE_ENV === "PROD" || process.env.NODE_ENV === "INT";
   res.clearCookie("token", {
     httpOnly: true,
-    sameSite: "Strict",
+    secure: isProdOrInt,
+    sameSite: isProdOrInt ? "None" : "Strict",
   });
-  res.clearCookie("refreshToken", { httpOnly: true, sameSite: "Strict" });
+  res.clearCookie("refreshToken", {
+    httpOnly: true,
+    secure: isProdOrInt,
+    sameSite: isProdOrInt ? "None" : "Strict",
+  });
   // await redisClient.del(`refresh:${userId}`);
   res.status(200).json({ message: "Logged out" });
 };
 
 export const refreshTokenController = async (req, res) => {
   const refreshToken = req.cookies.refreshToken;
-
+  console.log("inside refreshTokenController:");
   if (!refreshToken) {
     return res.status(401).json({ message: "Refresh token missing" });
   }
@@ -116,6 +134,7 @@ export const refreshTokenController = async (req, res) => {
     const expInSec = decoded.exp;
     const nowInSec = Math.floor(Date.now() / 1000);
     const ttl = expInSec - nowInSec;
+    console.log("ttl in refreshTokenController:", ttl);
     if (ttl < 30 * 60) {
       return res.status(403).json({ message: "refresh token Session expired" });
     }
@@ -133,8 +152,11 @@ export const refreshTokenController = async (req, res) => {
 
     res.cookie("token", newAccessToken, {
       httpOnly: true,
-      sameSite: "Strict",
-      // secure: process.env.NODE_ENV === "PROD",
+      secure: process.env.NODE_ENV === "PROD" || process.env.NODE_ENV === "INT",
+      sameSite:
+        process.env.NODE_ENV === "PROD" || process.env.NODE_ENV === "INT"
+          ? "None"
+          : "Strict",
       maxAge: 30 * 60 * 1000,
     });
 
@@ -146,5 +168,6 @@ export const refreshTokenController = async (req, res) => {
 };
 
 export const checkAuthController = (req, res) => {
+  console.log("inside checkAuthController:");
   return res.status(200).json({ message: "Token is valid" });
 };
