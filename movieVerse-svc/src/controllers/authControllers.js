@@ -7,7 +7,7 @@ export const signupController = async (req, res) => {
   const { fullname, email, password, confirmPassword } = req.body;
 
   try {
-    console.log("inside signupController:,NODE_ENV", process.env.NODE_ENV);
+    console.log("inside signupController:,APP_ENV", process.env.APP_ENV);
     if (!fullname || !email || !password || !confirmPassword) {
       return res
         .status(400)
@@ -62,7 +62,7 @@ export const signinController = async (req, res) => {
     if (!matchPassword) {
       return res.status(401).json({ message: "Invalid Login credentials" });
     }
-    console.log("before setting cookie in signinController:NODE_ENV", process.env.NODE_ENV);
+    console.log("before setting cookie in signinController:APP_ENV", process.env.APP_ENV);
     const token = jwt.sign(
       { email: existingUser.email, id: existingUser._id },
       process.env.SECRET_KEY,
@@ -75,18 +75,18 @@ export const signinController = async (req, res) => {
     );
     res.cookie("token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "PROD" || process.env.NODE_ENV === "INT",
+      secure: process.env.APP_ENV === "PROD" || process.env.APP_ENV === "INT",
       sameSite:
-        process.env.NODE_ENV === "PROD" || process.env.NODE_ENV === "INT"
+        process.env.APP_ENV === "PROD" || process.env.APP_ENV === "INT"
           ? "None"
           : "Strict",
       maxAge: 30 * 60 * 1000,
     });
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "PROD" || process.env.NODE_ENV === "INT",
+      secure: process.env.APP_ENV === "PROD" || process.env.APP_ENV === "INT",
       sameSite:
-        process.env.NODE_ENV === "PROD" || process.env.NODE_ENV === "INT"
+        process.env.APP_ENV === "PROD" || process.env.APP_ENV === "INT"
           ? "None"
           : "Strict",
       maxAge: 2 * 24 * 60 * 60 * 1000,
@@ -104,9 +104,9 @@ export const signinController = async (req, res) => {
 };
 
 export const logoutController = async (req, res) => {
-  console.log("inside logoutController: NODE_env", process.env.NODE_ENV);
+  console.log("inside logoutController: APP_env", process.env.APP_ENV);
   const isProdOrInt =
-    process.env.NODE_ENV === "PROD" || process.env.NODE_ENV === "INT";
+    process.env.APP_ENV === "PROD" || process.env.APP_ENV === "INT";
   res.clearCookie("token", {
     httpOnly: true,
     secure: isProdOrInt,
@@ -152,9 +152,9 @@ export const refreshTokenController = async (req, res) => {
 
     res.cookie("token", newAccessToken, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "PROD" || process.env.NODE_ENV === "INT",
+      secure: process.env.APP_ENV === "PROD" || process.env.APP_ENV === "INT",
       sameSite:
-        process.env.NODE_ENV === "PROD" || process.env.NODE_ENV === "INT"
+        process.env.APP_ENV === "PROD" || process.env.APP_ENV === "INT"
           ? "None"
           : "Strict",
       maxAge: 30 * 60 * 1000,
