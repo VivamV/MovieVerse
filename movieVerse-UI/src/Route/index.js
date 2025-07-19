@@ -16,6 +16,8 @@ import SignupForm from "../features/auth/RegisterForm/SignupForm";
 import TheatreBookingPage from "../features/booking/TheatreBookingPage/TheatreBookingPage";
 import TicketBookingPage from "../features/booking/TicketBookingPage/TicketBookingPage";
 import FinalPaymentPage from "../features/booking/FinalPaymentPage/FinalPaymentPage";
+import TvSeriesStreaming from "../features/streaming/TvSeriesStreaming";
+import StreamTesting from "../Container/StreamTesting/StreamTesting";
 
 import { useLocation } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
@@ -110,6 +112,8 @@ const RouteComponent = () => {
               />
               <Route path="/final-payment" element={<FinalPaymentPage />} />
               <Route path="/profile/:userId" element={<Profile />} />
+              <Route path="/tv-streaming" element={<TvSeriesStreaming />} />
+              <Route path="/streamtesting" element={<StreamTesting/>}/>
               <Route path="*" element={<NoMatch />} />
             </Route>
           </Routes>

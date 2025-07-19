@@ -14,6 +14,7 @@ import {
   deleteLock,
   getProfileDetails
 } from "../controllers/bookingController.js";
+import { getUploadedStreamData } from "../controllers/streamingController.js";
 
 const userRouter = express.Router();
 
@@ -43,5 +44,8 @@ userRouter.post('/clear-lock',auth,deleteLock);
 userRouter.get("/profile-details",auth,getProfileDetails);
 
 userRouter.get("/get-user-id",auth,(req,res)=>{res.status(200).json({userId:req.user.id})});
+
+//streamingRoutes
+userRouter.get("/getUploadedStreamData",getUploadedStreamData);
 
 export default userRouter;

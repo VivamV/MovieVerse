@@ -22,6 +22,7 @@
 - ✅ User registration, login & token-based authentication (JWT & refresh tokens)
 - 🎟️ Movie, Theatre, Show & Booking APIs
 - 🧠 Seat selection with Redis-based locking
+-  Adaptive Streaming of Videos
 - 🔍 Movie search and filter
 - 🔐 Secure cookie management
 - 🔁 Environment support for INT & PROD
@@ -60,7 +61,7 @@ develop – Base branch for all feature work
 prod – Production-ready deployment
 
 ## Roadmap / Major Future Enhancements
-- Video Streaming of TV Shows(adaptive)
+- Video Streaming of TV Shows(adaptive) more scalable
 - Recommendation System on basis of user recent clicks
 - Email confirmation + QR ticket generation
 - Create admin dashboard (manage movies, shows, users)
