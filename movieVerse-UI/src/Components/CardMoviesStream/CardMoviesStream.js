@@ -17,15 +17,16 @@ const CardMoviesStream = ({ data, mediaType }) => {
 
   const s3uploadProcessedLink = data?.s3UploadProcessedLink;
   const s3UploadRawLink = data?.s3UploadRawLink;
-
+  const status=data?.status;
   const handleTVStreaming = () => {
-    if (s3UploadRawLink && s3uploadProcessedLink) {
+    if (s3UploadRawLink && s3uploadProcessedLink && status==="processed") {
       navigate("/tv-streaming", {
         state: {
           movieId: id,
           originalFullName: data?.originalFullName,
           rawFileS3Link: data?.s3UploadRawLink,
           processedFileS3Link: data?.s3UploadProcessedLink,
+          status:data?.status
         },
       });
     } else {
@@ -86,7 +87,7 @@ const CardMoviesStream = ({ data, mediaType }) => {
             </h3>
           </div>
         </Link>
-        {mediaType === "tv" && s3UploadRawLink && s3uploadProcessedLink ? (
+        {mediaType === "tv" && s3UploadRawLink && s3uploadProcessedLink && status==="processed" ? (
           <button className="book-btn" onClick={() => handleTVStreaming(id)}>
             Stream
           </button>

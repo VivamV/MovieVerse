@@ -5,8 +5,7 @@ import "shaka-player/dist/controls.css"; // THIS IS IMPORTANT FOR UI CONTROLS TO
 
 const ShakaPlayerWithUI = () => {
   const location = useLocation();
-  const { movieId, originalFullName, rawFileS3Link, processedFileS3Link } =location.state;
-  console.log("processedLink", processedFileS3Link);
+  const { movieId, originalFullName, rawFileS3Link, processedFileS3Link,status } =location.state;
 
   const videoRef = useRef(null);
   const containerRef = useRef(null);
@@ -20,6 +19,7 @@ const ShakaPlayerWithUI = () => {
       containerRef.current &&
       rawFileS3Link &&
       processedFileS3Link
+      && status==="processed"
     ) {
       const player = new shaka.Player(videoRef.current);
       const ui = new shaka.ui.Overlay(

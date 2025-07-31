@@ -63,7 +63,7 @@ const StreamTesting = () => {
   catch(error){
     const status=error.response?.status;
     const message=error.response?.data?.message;
-    console.log("Error in feching uploaded Movies",error);
+    console.error("Error in feching uploaded Movies",error);
     if(status===401 || status === 403){
       alert(message);
       navigate("/")
@@ -79,7 +79,6 @@ const StreamTesting = () => {
     GetDataTrending();
   }, []);
 
-  console.log("content", content);
   return (
     <main className="homePage">
       <Container>

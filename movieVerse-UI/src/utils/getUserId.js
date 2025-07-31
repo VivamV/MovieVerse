@@ -10,6 +10,6 @@ export const getUserId = () => {
 
   export const getUserIdByToken =async () => {
     const user=await getUserDetails();
-    console.log("user",user.data.userId);
+    // console.log("user",user.data.userId);
     return user?.data?.userId  || null; 
   };

@@ -365,28 +365,28 @@ export const convertVideoJob = async (req, res) => {
 
     // 4. After ECS job is done, delete from Redis
     //     await deleteRedisJob(job.fileName);
-    // const mpdUrl = `https://processed-videos-movieverse.s3.ap-south-1.amazonaws.com/dash/${movieId}_${originalFullName}/output.mpd`;
+    const mpdUrl = `https://processed-videos-movieverse.s3.ap-south-1.amazonaws.com/dash/${movieId}_${originalFullName}/output.mpd`;
 
-    // console.log(
-    //   "Before update:",
-    //   await StreamingMoviesModel.findOne({ movieId }).lean()
-    // );
+    console.log(
+      "Before update:",
+      await StreamingMoviesModel.findOne({ movieId }).lean()
+    );
 
     // 5) After updating
-    // const result = await StreamingMoviesModel.updateOne(
-    //   { movieId },
-    //   { $set: { s3UploadProcessedLink: mpdUrl, status: "processed" } }
-    // );
-    // console.log(
-    //   "After update:",
-    //   await StreamingMoviesModel.findOne({ movieId }).lean()
-    // );
+    const result = await StreamingMoviesModel.updateOne(
+      { movieId },
+      { $set: { s3UploadProcessedLink: mpdUrl, status: "processed" } }
+    );
+    console.log(
+      "After update:",
+      await StreamingMoviesModel.findOne({ movieId }).lean()
+    );
 
     // res.status(200).json({
     //   message: "Conversion and upload successful",
     //   mpdUrl: mpdUrl,
     // });
-    return res.status(200).json({ message: "ECS task started" });
+    return res.status(200).json({ message: "ECS task started",mpdUrl: mpdUrl, });
   } catch (err) {
     console.error("❌ Error in convertVideo:", err);
     res.status(500).json({ error: "Internal server error" });
