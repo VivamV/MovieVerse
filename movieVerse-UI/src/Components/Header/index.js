@@ -63,58 +63,58 @@ useEffect(() => {
   //   }
   // };
 
-  // const handleFileChange = async (e) => {
-  //   const file = e.target.files[0];
-  //   if (!file) return;
+  const handleFileChange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
 
-  //   const formData = new FormData();
-  //   formData.append("video", file);
+    const formData = new FormData();
+    formData.append("video", file);
 
-  //   try {
-  //     setUploading(true);
-  //     setUploadProgress(0);
+    try {
+      setUploading(true);
+      setUploadProgress(0);
        
-  //   const preSignedResponse=await adminGetPresignedUrl(file);
-  //   const { uploadUrl, s3Key,movieId } = preSignedResponse?.data;
-  //   const s3Response=await adminUploadRawVideoPresignedUrl(uploadUrl,file,{onUploadProgress: (progressEvent) => {
-  //   const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-  //   setUploadProgress(progress);
-  // },});
+    const preSignedResponse=await adminGetPresignedUrl(file);
+    const { uploadUrl, s3Key,movieId } = preSignedResponse?.data;
+    const s3Response=await adminUploadRawVideoPresignedUrl(uploadUrl,file,{onUploadProgress: (progressEvent) => {
+    const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+    setUploadProgress(progress);
+  },});
 
-  //   const videoDetails=  {
-  //       movieId,
-  //       originalFullName: file.name,
-  //       movieTitle: file.name.replace(/\.[^/.]+$/, ""),
-  //       s3UploadRawLink: `https://raw-videos-bucket-vivam.s3.ap-south-1.amazonaws.com/${s3Key}`,
-  //       first_air_date: "2024-01-01", 
-  //       poster_path: "",
-  //       original_language: "en",
-  //       vote_average: 5.5,
-  //     };
-  //   const metadataResponse = await adminSaveVideoMetadata(videoDetails)
-  //     alert("Video uploaded successfully!");
-  //   } catch (err) {
-  //     console.error("Uploading Raw Video failed", err.response?.data || err.message);
-  //     alert("Uploading Raw Video failed!");
-  //   } finally {
-  //     setUploading(false);
-  //     setUploadProgress(0);
-  //     setFileInputKey(Date.now()); // Reset file input so same file can be uploaded again
-  //   }
-  // };
+    const videoDetails=  {
+        movieId,
+        originalFullName: file.name,
+        movieTitle: file.name.replace(/\.[^/.]+$/, ""),
+        s3UploadRawLink: `https://raw-videos-bucket-vivam.s3.ap-south-1.amazonaws.com/${s3Key}`,
+        first_air_date: "2024-01-01", 
+        poster_path: "",
+        original_language: "en",
+        vote_average: 5.5,
+      };
+    const metadataResponse = await adminSaveVideoMetadata(videoDetails)
+      alert("Video uploaded successfully!");
+    } catch (err) {
+      console.error("Uploading Raw Video failed", err.response?.data || err.message);
+      alert("Uploading Raw Video failed!");
+    } finally {
+      setUploading(false);
+      setUploadProgress(0);
+      setFileInputKey(Date.now()); // Reset file input so same file can be uploaded again
+    }
+  };
 
-// const openConvertModal = async () => {
-//   try {
-//     setShowModal(true);
-//     setSelectedVideo(null);
-//     const response = await getStreamUploadedData();
-//     setRawVideoList(response?.data?.data); 
-//   } catch (err) {
-//     console.error("Error fetching raw video list", err);
-//     alert("Failed to fetch video list");
-//   }
+const openConvertModal = async () => {
+  try {
+    setShowModal(true);
+    setSelectedVideo(null);
+    const response = await getStreamUploadedData();
+    setRawVideoList(response?.data?.data); 
+  } catch (err) {
+    console.error("Error fetching raw video list", err);
+    alert("Failed to fetch video list");
+  }
 
-// };
+};
 
 const handleProcess = async () => {
   if (!selectedVideo) {
@@ -224,7 +224,7 @@ const handleModalClose = () => {
               {/* <button onClick={clearRedis} className="btn btn-warning me-2">Clear Redis</button>
               <button onClick={getRedis} className="btn btn-info">Get Redis</button> */}
 
-              {/* <input
+              <input
                 key={fileInputKey}
                 type="file"
                 id="rawVideoUpload"
@@ -240,8 +240,8 @@ const handleModalClose = () => {
                 {uploading
                   ? `Uploading... ${uploadProgress}%`
                   : "Upload Raw Video"}
-              </button> */}
-              {/* <button onClick={openConvertModal} className="btn btn-primary">Convert</button> */}
+              </button>
+              <button onClick={openConvertModal} className="btn btn-primary">Convert</button>
 
             
           </Navbar.Collapse>
