@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
 // import axios from "axios";
 import "./TicketBookingPage.css";
-import getUserId from "../../../utils/getUserId";
+import { getUserId,getUserIdByToken } from "../../../utils/getUserId";
 import { toast } from "react-toastify";
 import useLogout from "../../../Hooks/useLogout";
 import { getReservedSeats, lockSeats } from "../../../api/bookingAPI";
@@ -38,9 +38,12 @@ const TicketBookingPage = () => {
     const clearBookingLock = async () => {
       const sessionId = sessionStorage.getItem("bookingSessionId");
       const userId = getUserId();
+      console.log("userId Booking",userId);
+      const userIdByToken= await getUserIdByToken();
+      console.log("userIdByToken Booking",userIdByToken);
 
-      if (sessionId && movieId && userId) {
-        const payload = { movieId, userId, sessionId };
+      if (sessionId && movieId && userIdByToken) {
+        const payload = { movieId, userId: userIdByToken, sessionId };
         await clearRedisLock(payload, logout);
       }
     };
@@ -120,6 +123,10 @@ const TicketBookingPage = () => {
 
   const handleBooking = async () => {
     const userId = getUserId();
+      console.log("userId Booking",userId);
+      const userIdByToken= await getUserIdByToken();
+      console.log("userIdByToken Booking",userIdByToken);
+      
     setloading(true);
 
     const payload = {
@@ -134,7 +141,7 @@ const TicketBookingPage = () => {
       movieTitle,
       seats: selectedSeats,
       mediaType,
-      userId,
+      userId:userIdByToken,
       sessionId,
       date,
       theatre,
@@ -200,7 +207,7 @@ const TicketBookingPage = () => {
             movieId,
             movieTitle,
             selectedSeats,
-            userId,
+            userId:userIdByToken,
             fromBooking: true,
             sessionId,
             date,
