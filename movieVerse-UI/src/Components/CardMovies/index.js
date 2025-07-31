@@ -26,7 +26,8 @@ const CardMoviesComponents = ({ data, mediaType }) => {
     });
   };
   const handleTVStreaming = () => {
-    alert("Streaming feature coming soon");
+    alert("Streaming feature for these files coming soon,for testing move to StreamingTesting");
+    //  navigate("/tv-streaming");
   };
   const today = new Date();
 

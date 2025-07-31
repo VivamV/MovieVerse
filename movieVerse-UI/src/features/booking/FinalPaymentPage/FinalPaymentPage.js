@@ -8,6 +8,7 @@ import { refreshToken } from "../../../api/authAPI";
 
 const FinalPaymentPage = () => {
   const [loading, setLoading] = useState(false);
+  const [timer,setTimer]=useState(60);
   const location = useLocation();
   const navigate = useNavigate();
   const logout = useLogout();
@@ -47,6 +48,19 @@ const FinalPaymentPage = () => {
     await clearRedisLock(payload, logout);
     navigate("/home");
   };
+  useEffect(()=>{
+    const interval = setInterval(() => {
+      setTimer((prevTimer) => prevTimer - 1);
+    }, 1000);
+    return () => clearInterval(interval);
+  },[]);
+   useEffect(()=>{
+    if(timer===0){
+     toast.error("Session Expired,Book again");
+     navigate("/home");
+    }
+   
+  },[timer]);
 
   useEffect(() => {
     const handleBeforeUnload = async (e) => {
@@ -172,6 +186,10 @@ const FinalPaymentPage = () => {
         You have got a Minute to make your payment ,otherwise seats will be
         cancelled
       </p>
+      <p style={{ fontSize: "18px", color: "red" }}>
+        Time left: {timer} seconds
+      </p>
+
       <h2>Final Payment</h2>
       <p>
         <strong>Movie:</strong> {movieTitle}
