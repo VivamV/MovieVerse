@@ -30,7 +30,7 @@ export const runECSTask = async ({ fileName, s3Path, bucketName, movieId }) => {
               name: "AWS_SECRET_ACCESS_KEY", value: process.env.AWS_SECRET_ACCESS_KEY,
             },
             { name: "AWS_REGION", value: "ap-south-1" },
-            // {name: 'MOVIEVERSE_UI_BASE_URL', value: 'http://host.docker.internal:4000' }
+            {name: 'MOVIEVERSE_SVCC_BASE_URL', value: process.env.MOVIEVERSE_SVCC_BASE_URL }
           ],
         },
       ],
