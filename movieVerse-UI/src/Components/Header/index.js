@@ -6,7 +6,7 @@ import Navbar from "react-bootstrap/Navbar";
 import { Link } from "react-router-dom";
 import { getUserId,getUserIdByToken } from "../../utils/getUserId";
 import useLogout from "../../Hooks/useLogout";
-import { adminClearRedis, adminGetandUploadProcessedVideos, adminGetRedis,adminUploadRawVideo } from '../../api/adminAPI';
+import { adminClearRedis, adminGetandUploadProcessedVideos, adminGetRedis,adminUploadRawVideo,adminGetPresignedUrl,adminSaveVideoMetadata,adminUploadRawVideoPresignedUrl } from '../../api/adminAPI';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import { getStreamUploadedData } from "../../api/streamingAPI";
@@ -26,8 +26,7 @@ const HeaderComponent = () => {
      const [selectedVideo, setSelectedVideo] = useState(null);
      const [processing,setProccessing]=useState(false);
 
-     const [abortController, setAbortController] = useState(null);
-     const controller=new AbortController();
+
   const userId = getUserId();
   const logout = useLogout();
   const navData = [
@@ -46,76 +45,85 @@ useEffect(() => {
   fetchUserIdByToken();
 }, []);
 
-console.log("userIdByToken Heeader",userIdByToken);
 
-  const clearRedis = async () => {
-    try {
-      const res = await adminClearRedis();
-    } catch (error) {
-      console.error("Error clearing Redis:", error.response?.data || error.message);
-    }
-  };
 
-  const getRedis = async () => {
-    try {
-      const res = await adminGetRedis()
-    } catch (error) {
-      console.error("Error fetching Redis data:", error.response?.data || error.message);
-    }
-  };
+  // const clearRedis = async () => {
+  //   try {
+  //     const res = await adminClearRedis();
+  //   } catch (error) {
+  //     console.error("Error clearing Redis:", error.response?.data || error.message);
+  //   }
+  // };
 
-  const handleFileChange = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
+  // const getRedis = async () => {
+  //   try {
+  //     const res = await adminGetRedis()
+  //   } catch (error) {
+  //     console.error("Error fetching Redis data:", error.response?.data || error.message);
+  //   }
+  // };
 
-    const formData = new FormData();
-    formData.append("video", file);
+  // const handleFileChange = async (e) => {
+  //   const file = e.target.files[0];
+  //   if (!file) return;
 
-    try {
-      setUploading(true);
-      setUploadProgress(0);
+  //   const formData = new FormData();
+  //   formData.append("video", file);
 
-      const response = await adminUploadRawVideo(formData, {
-     onUploadProgress: (progressEvent) => {
-    const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-    setUploadProgress(progress);
-  },
-      });
+  //   try {
+  //     setUploading(true);
+  //     setUploadProgress(0);
+       
+  //   const preSignedResponse=await adminGetPresignedUrl(file);
+  //   const { uploadUrl, s3Key,movieId } = preSignedResponse?.data;
+  //   const s3Response=await adminUploadRawVideoPresignedUrl(uploadUrl,file,{onUploadProgress: (progressEvent) => {
+  //   const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+  //   setUploadProgress(progress);
+  // },});
 
-      alert("Video uploaded successfully!");
-      console.log(response.data);
-    } catch (err) {
-      console.error("Uploading Raw Video failed", err.response?.data || err.message);
-      alert("Uploading Raw Video failed!");
-    } finally {
-      setUploading(false);
-      setUploadProgress(0);
-      setFileInputKey(Date.now()); // Reset file input so same file can be uploaded again
-    }
-  };
+  //   const videoDetails=  {
+  //       movieId,
+  //       originalFullName: file.name,
+  //       movieTitle: file.name.replace(/\.[^/.]+$/, ""),
+  //       s3UploadRawLink: `https://raw-videos-bucket-vivam.s3.ap-south-1.amazonaws.com/${s3Key}`,
+  //       first_air_date: "2024-01-01", 
+  //       poster_path: "",
+  //       original_language: "en",
+  //       vote_average: 5.5,
+  //     };
+  //   const metadataResponse = await adminSaveVideoMetadata(videoDetails)
+  //     alert("Video uploaded successfully!");
+  //   } catch (err) {
+  //     console.error("Uploading Raw Video failed", err.response?.data || err.message);
+  //     alert("Uploading Raw Video failed!");
+  //   } finally {
+  //     setUploading(false);
+  //     setUploadProgress(0);
+  //     setFileInputKey(Date.now()); // Reset file input so same file can be uploaded again
+  //   }
+  // };
 
-const openConvertModal = async () => {
-  try {
-    setShowModal(true);
-    setSelectedVideo(null);
-    const response = await getStreamUploadedData();
-    setRawVideoList(response?.data?.data); 
-  } catch (err) {
-    console.error("Error fetching raw video list", err);
-    alert("Failed to fetch video list");
-  }
+// const openConvertModal = async () => {
+//   try {
+//     setShowModal(true);
+//     setSelectedVideo(null);
+//     const response = await getStreamUploadedData();
+//     setRawVideoList(response?.data?.data); 
+//   } catch (err) {
+//     console.error("Error fetching raw video list", err);
+//     alert("Failed to fetch video list");
+//   }
 
-};
+// };
 
 const handleProcess = async () => {
   if (!selectedVideo) {
     alert("Please select a video to process.");
     return;
   }
-  setAbortController(controller);
   try {
     setProccessing(true);
-    const response = await adminGetandUploadProcessedVideos(selectedVideo,controller.signal); 
+    const response = await adminGetandUploadProcessedVideos(selectedVideo); 
     alert("Video successfully converted and uploaded!");
     setShowModal(false);
   } catch (err) {
@@ -125,18 +133,12 @@ const handleProcess = async () => {
     finally{
     setShowModal(false);
     setSelectedVideo(null);
-    setAbortController(null); 
     setRawVideoList([]);
     setProccessing(false);
   }
 };
-console.log("abort controller outside",abortController)
+
 const handleModalClose = () => {
-  console.log("abortcontroller",abortController);
-  if (abortController) {
-    abortController.abort(); // Cancel the ongoing request
-  }
-  setAbortController(null);
   setShowModal(false);
   setSelectedVideo(null);
   setRawVideoList([]);
@@ -155,21 +157,31 @@ const handleModalClose = () => {
       <p>No raw videos found.</p>
     ) : (
       <div className="list-group">
-        {rawVideoList.map((video) => {
-         const isProcessed = !!video.s3UploadProcessedLink;
-         console.log("isProcessed",isProcessed)
-         console.log("video",video)
+{rawVideoList.map((video) => {
+  const { movieId, movieTitle,s3UploadProcessedLink } = video;
+  const status = video.status || "unprocessed";
+
+  const isDisabled = status === "processing" || status === "processed" ;
+  const statusLabel = {
+    unprocessed: "",
+    processing: "⏳ (Processing)",
+    processed: "✅ (Processed)",
+    failed: "❌ (Failed)"
+  }[status];
   return (
     <button
-      key={video.movieId}
-      className={`list-group-item list-group-item-action ${selectedVideo?.movieId === video.movieId ? "active" : ""}`}
-      onClick={() => !isProcessed && setSelectedVideo(video)}
-      disabled={isProcessed}
+      key={movieId}
+      className={`list-group-item list-group-item-action ${
+        selectedVideo?.movieId === movieId ? "active" : ""
+      }`}
+      onClick={() => !isDisabled && setSelectedVideo(video)}
+      disabled={isDisabled}
     >
-      🎬 {video.movieTitle} {isProcessed ? "✅ (Processed)" : ""}
+      🎬 {movieTitle} {statusLabel}
     </button>
   );
 })}
+
       </div>
     )}
     
@@ -181,7 +193,7 @@ const handleModalClose = () => {
     <Button variant="primary" onClick={handleProcess} disabled={!selectedVideo || processing}>
       Process
     </Button>
-  </Modal.Footer>
+      </Modal.Footer>
 </Modal>
       <Navbar bg="dark" expand="lg">
         <Container>
@@ -209,10 +221,10 @@ const handleModalClose = () => {
                 Logout
               </button>
               {/*admin Routes */}
-              <button onClick={clearRedis} className="btn btn-warning me-2">Clear Redis</button>
-              <button onClick={getRedis} className="btn btn-info">Get Redis</button>
+              {/* <button onClick={clearRedis} className="btn btn-warning me-2">Clear Redis</button>
+              <button onClick={getRedis} className="btn btn-info">Get Redis</button> */}
 
-              <input
+              {/* <input
                 key={fileInputKey}
                 type="file"
                 id="rawVideoUpload"
@@ -228,8 +240,8 @@ const handleModalClose = () => {
                 {uploading
                   ? `Uploading... ${uploadProgress}%`
                   : "Upload Raw Video"}
-              </button>
-              <button onClick={openConvertModal} className="btn btn-primary">Convert</button>
+              </button> */}
+              {/* <button onClick={openConvertModal} className="btn btn-primary">Convert</button> */}
 
             
           </Navbar.Collapse>

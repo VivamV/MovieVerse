@@ -40,6 +40,11 @@ const streamingUploadedMoviesSchema = new Schema({
     type: String,
     required: false
   },
+    status:{
+    type: String,
+    required: false,
+    default:"unprocessed"
+  },//unprocessed,processing,processed,failed
   uploadDate: {
     type: Date,
     default: Date.now,
