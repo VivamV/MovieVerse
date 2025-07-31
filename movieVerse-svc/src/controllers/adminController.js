@@ -386,7 +386,7 @@ export const convertVideoJob = async (req, res) => {
     //   message: "Conversion and upload successful",
     //   mpdUrl: mpdUrl,
     // });
-    return res.status(200).json({ message: "ECS task started",mpdUrl: mpdUrl, });
+    return res.status(200).json({ message: "ECS task started" });
   } catch (err) {
     console.error("❌ Error in convertVideo:", err);
     res.status(500).json({ error: "Internal server error" });
