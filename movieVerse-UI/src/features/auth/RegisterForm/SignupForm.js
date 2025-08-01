@@ -7,6 +7,7 @@ import sha256 from "crypto-js/sha256";
 import Hex from "crypto-js/enc-hex";
 import "./SignupForm.css";
 import { register } from "../../../api/authAPI";
+import { triggerN8NforMail } from "../../../utils/sendAImail";
 
 const SignupForm = () => {
   const navigate = useNavigate();
@@ -57,11 +58,12 @@ const SignupForm = () => {
       try {
         const response = await register(payload);
         if (response.status === 201) {
+          triggerN8NforMail(values.email,values.fullname,"Signup success","Hi "+values.fullname+",Welcome to MovieVerse");
           toast.success("User Registered, Please Login with your credentials");
         } else {
           alert("some unexpected error,cant register,please Register again");
         }
-        setTimeout(() => navigate("/"), 3000);
+        setTimeout(() => navigate("/"), 1000);
       } catch (error) {
         console.error("There was an error registering:", error);
         const status = error?.response?.status;

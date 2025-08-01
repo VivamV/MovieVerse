@@ -10,7 +10,7 @@ import { adminClearRedis, adminGetandUploadProcessedVideos, adminGetRedis,adminU
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import { getStreamUploadedData } from "../../api/streamingAPI";
-
+// import { triggerN8NforMail } from "../../utils/sendAImail";
 
 const HeaderComponent = () => {
     const [userIdByToken, setUserIdByToken] = useState(null);
@@ -223,7 +223,7 @@ const handleModalClose = () => {
               {/*admin Routes */}
               {/* <button onClick={clearRedis} className="btn btn-warning me-2">Clear Redis</button>
               <button onClick={getRedis} className="btn btn-info">Get Redis</button> */}
-
+              {/* <buttton onClick={()=>{triggerN8NforMail("varunpratapsingh7213@gmail.com","values.fullname","Signup success","Hi,Welcome to MovieVerse")}} className="btn btn-primary">Trigger N8N</buttton> */}
               <input
                 key={fileInputKey}
                 type="file"
@@ -242,7 +242,7 @@ const handleModalClose = () => {
                   : "Upload Raw Video"}
               </button>
               <button onClick={openConvertModal} className="btn btn-primary">Convert</button>
-
+        
             
           </Navbar.Collapse>
         </Container>
