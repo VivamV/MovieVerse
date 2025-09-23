@@ -7,9 +7,7 @@ import sha256 from "crypto-js/sha256";
 import Hex from "crypto-js/enc-hex";
 import { v4 as uuidv4 } from "uuid";
 import "./LoginForm.css";
-import { login } from "../../../api/authAPI";
-import { checkAuth } from "../../../api/authAPI";
-import { refreshToken } from "../../../api/authAPI";
+import { login, checkAuth, refreshToken } from "../../../api/authAPI";
 
 const LoginForm = () => {
   const sessionId = uuidv4();
@@ -30,10 +28,7 @@ const LoginForm = () => {
           /[!@#$%^&*]/,
           "Password must contain at least one special character"
         )
-        .matches(
-          /[0-9]/,
-          "Password must contain at least one numeric character"
-        )
+        .matches(/[0-9]/, "Password must contain at least one numeric character")
         .matches(/[A-Z]/, "Password must contain at least one uppercase letter")
         .required("Password is required"),
     }),
@@ -48,10 +43,7 @@ const LoginForm = () => {
 
         if (response.status === 200) {
           toast.success("Login Successful");
-          localStorage.setItem(
-            "userDetails",
-            JSON.stringify(response.data.user)
-          );
+          localStorage.setItem("userDetails", JSON.stringify(response.data.user));
           sessionStorage.setItem("bookingSessionId", sessionId);
           navigate("/home");
         } else {
@@ -62,12 +54,7 @@ const LoginForm = () => {
         const status = error?.response?.status;
         const message = error?.response?.data?.message;
 
-        if (
-          status === 400 ||
-          status === 500 ||
-          status === 401 ||
-          status === 404
-        ) {
+        if (status === 400 || status === 500 || status === 401 || status === 404) {
           toast.error(message);
         } else {
           alert(message);
@@ -119,6 +106,10 @@ const LoginForm = () => {
   return (
     <div className="login-container">
       <div className="login-box">
+        <div className="startup-notice">
+          Note: This site is deployed on free platforms (Render,Vercel), so it may take a few seconds to start if idle.
+        </div>
+
         <div className="brand-name"> MovieVerse</div>
         <h2>Sign in to your account</h2>
         <form onSubmit={formik.handleSubmit}>

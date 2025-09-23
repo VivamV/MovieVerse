@@ -8,6 +8,7 @@ import PaginationComponent from "../../Components/Pagination";
 
 import LeftListBarComponent from "../../Components/LeftListBar";
 import useGenres from "../../Hooks/useGenres";
+import moviesPageFallback from "../../data/moviesPageFallback.json";
 
 const MoviesContainer = () => {
   const [content, setContent] = useState([]);
@@ -20,12 +21,26 @@ const MoviesContainer = () => {
   const API_KEY = process.env.REACT_APP_NOT_SECRET_CODE;
 
   const genreforURL = useGenres(selectedGenres);
-  const GetDataTrending = async () => {
+  const GetDataTrending = async () => {  
+   try {
     const { data } = await axios.get(
       `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&page=${pageno}&with_genres=&language=en-US&with_genres=${genreforURL}`
     );
     setContent(data.results);
-    setPaginationno(data.total_pages);
+    setPaginationno(data.total_pages)
+  }
+    catch(error){
+      console.error("TMDB Movie API failed, using fallback data:", error.message);  
+      let filteredResults = moviesPageFallback.results;
+      if (genreforURL && String(genreforURL).length > 0) {
+      const selectedIds = String(genreforURL).split(",").map(Number); 
+      filteredResults = moviesPageFallback.results.filter((item) =>
+      item.genre_ids.some((gid) => selectedIds.includes(gid))
+      );
+  }
+      setContent(filteredResults);
+      setPaginationno(moviesPageFallback.total_pages);
+    }
   };
 
   useEffect(() => {

@@ -7,6 +7,9 @@ import "./details.css";
 import axios from "axios";
 import DarkVariantExample from "../../Components/Carousel";
 import { img_300, img_not_available } from "../../Config";
+import detailsDataFallback from "../../data/detailsDataFallbackFantasticFour.json";
+import detailsVideoFallback from "../../data/detailsVideoFallbackFantasticFour.json";
+import detailsCreditsFallback from "../../data/detailsCreditsFallbackFantasticFour.json";
 
 const DetailsContainer = () => {
   const params = useParams();
@@ -35,6 +38,7 @@ const DetailsContainer = () => {
       setContent(data);
     } catch (error) {
       console.error(error);
+      setContent(detailsDataFallback);
     }
   };
   const fetchVideo = async () => {
@@ -45,6 +49,7 @@ const DetailsContainer = () => {
       setVideo(data.results[0]?.key);
     } catch (error) {
       console.error(error);
+      setVideo(detailsVideoFallback.results[0]?.key);
     }
   };
 
@@ -56,6 +61,7 @@ const DetailsContainer = () => {
       setCredits(data.cast);
     } catch (error) {
       console.error(error);
+      setCredits(detailsCreditsFallback.cast);
     }
   };
 

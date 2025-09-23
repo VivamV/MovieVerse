@@ -1,0 +1,277 @@
+{
+    "page": 1,
+    "results": [
+        {
+            "adult": false,
+            "backdrop_path": "/ofRUyIddC3iE7hXGETqPAMUqy3P.jpg",
+            "genre_ids": [
+                99,
+                10770
+            ],
+            "id": 827007,
+            "original_language": "fr",
+            "original_title": "Indiana Jones : à la recherche de l'âge d'or perdu",
+            "overview": "Hawaii, May 1977. After the success of Star Wars, George Lucas and Steven Spielberg meet to find a new project to work on together, the former as producer, the latter as director. The story of how the charismatic archaeologist Indiana Jones was born and how his first adventure, released in 1981, triumphed at box offices around the world.",
+            "popularity": 0.5236,
+            "poster_path": "/r3iQkvEU50t87oiKq6seLJFZMgF.jpg",
+            "release_date": "2021-05-07",
+            "title": "Indiana Jones: The Search for the Lost Golden Age",
+            "video": false,
+            "vote_average": 7.8,
+            "vote_count": 28
+        },
+        {
+            "adult": false,
+            "backdrop_path": null,
+            "genre_ids": [],
+            "id": 1290576,
+            "original_language": "pt",
+            "original_title": "Indiana Jones e a Lança do Destino",
+            "overview": "Indiana Jones embarks on a journey to find the Lance of Longinus, and the quest isn't easy, as he faces adversaries within the Vatican.  (Fan film made in team together with college colleagues)",
+            "popularity": 0.0143,
+            "poster_path": "/yuJYh5gjCEoNTmbfKcpAfvc1UPV.jpg",
+            "release_date": "2017-04-14",
+            "title": "Indiana Jones and the Lance of Longinus",
+            "video": false,
+            "vote_average": 7.0,
+            "vote_count": 1
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/y0XRSHh2Zrqipystj69Fp31NCOn.jpg",
+            "genre_ids": [
+                99,
+                10770
+            ],
+            "id": 1135295,
+            "original_language": "fr",
+            "original_title": "Indiana Jones : à la poursuite d’une icône",
+            "overview": "A whip, a hat on his head, a worn leather jacket, an inimitable ironic smile, an unmistakable silhouette: in the tireless footsteps of Indiana Jones, an elusive pop culture icon.",
+            "popularity": 0.519,
+            "poster_path": "/wSppxE2sewwxOdvbvILV8yNvHtk.jpg",
+            "release_date": "2023-06-01",
+            "title": "Indiana Jones: Chasing an Icon",
+            "video": false,
+            "vote_average": 8.0,
+            "vote_count": 2
+        },
+         {
+            "adult": false,
+            "backdrop_path": "/AkfqKaD1KqfIqytxLvWlyKJRlEi.jpg",
+            "genre_ids": [
+                35,
+                80
+            ],
+            "id": 21614,
+            "original_language": "hi",
+            "original_title": "Hera Pheri",
+            "overview": "Three unemployed men find the answer to all their money problems when they receive a call from a kidnapper. However, things do not go as planned.",
+            "popularity": 0.9671,
+            "poster_path": "/iQIbClo27cBFROLuccQLLbMsJuX.jpg",
+            "release_date": "2000-03-31",
+            "title": "Hera Pheri",
+            "video": false,
+            "vote_average": 7.0,
+            "vote_count": 277
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/vr4fskAEI91XoBNMxEiW8Tx3Q6g.jpg",
+            "genre_ids": [
+                28,
+                35,
+                18
+            ],
+            "id": 170645,
+            "original_language": "hi",
+            "original_title": "Hera Pheri",
+            "overview": "Two con men, Vijay and Ajay, manage to hoodwink a number of wealthy people as well as Police Commissioner Khanna. Their lives undergo many changes, after a caper at a casino, where Vijay is recognized by a gangster named P.K., who decides to separate the two friends by claiming that Ajay is his long-lost son; insinuating that Vijay has not been completely forthright with Ajay; and implicating him in the murder of a male named Mac. Written by rAjOo (gunwanti@hotmail.com)",
+            "popularity": 0.9237,
+            "poster_path": "/hUlekD8DKi7GBTqy5HIrVovnU8i.jpg",
+            "release_date": "1976-10-01",
+            "title": "Hera Pheri",
+            "video": false,
+            "vote_average": 5.9,
+            "vote_count": 8
+        },
+         {
+            "adult": false,
+            "backdrop_path": "/swEHhTpROIYvQlMdvCR6HWzaFM9.jpg",
+            "genre_ids": [
+                35
+            ],
+            "id": 20359,
+            "original_language": "hi",
+            "original_title": "Phir Hera Pheri",
+            "overview": "Raju,  Shyam and Baburao are living happily after having risen from rags to riches. However, they lose it all after falling victim to a chit fund scam due to their greed for more money. Soon, they find themselves in new mess and encounter eccentric and dangerous characters in their quest for a shortcut to riches again.",
+            "popularity": 2.7913,
+            "poster_path": "/c1Mvyd983ZyrU5Vf2aKEe6WncSq.jpg",
+            "release_date": "2006-06-09",
+            "title": "Phir Hera Pheri",
+            "video": false,
+            "vote_average": 6.7,
+            "vote_count": 131
+        },
+         {
+            "adult": false,
+            "backdrop_path": "/1HYCHXwingCDWcPbE9NIi5keHqD.jpg",
+            "genre_ids": [
+                18,
+                28,
+                53,
+                80
+            ],
+            "id": 14194,
+            "original_language": "hi",
+            "original_title": "धूम २",
+            "overview": "Jai and Ali return, this time on the trail of an international thief who steals priceless artifacts and has chosen Mumbai as his next target.",
+            "popularity": 5.6464,
+            "poster_path": "/3zJLnrP9g9LSMpX5C1wau49gGUv.jpg",
+            "release_date": "2006-11-24",
+            "title": "Dhoom 2",
+            "video": false,
+            "vote_average": 6.574,
+            "vote_count": 257
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/7XkAU2MTHV1ifbINbcSS3P1mwG2.jpg",
+            "genre_ids": [
+                28,
+                80,
+                18,
+                53
+            ],
+            "id": 17478,
+            "original_language": "hi",
+            "original_title": "धूम",
+            "overview": "A gang of bikers headed by the cool-headed and arrogant Kabir is on a robbing spree in Mumbai.  ACP Jai Dixit is put in charge of the case and he recruits a bumbling bike mechanic and racer to help Jai nab them.",
+            "popularity": 5.0498,
+            "poster_path": "/A7fxXAsuYEohxYNl8YeH3FYkuDv.jpg",
+            "release_date": "2004-08-27",
+            "title": "Dhoom",
+            "video": false,
+            "vote_average": 6.2,
+            "vote_count": 210
+        },
+       {
+            "adult": false,
+            "backdrop_path": "/3SmbEb7T2Ypg5vBwLflLeVXkkQ1.jpg",
+            "genre_ids": [
+                28,
+                80
+            ],
+            "id": 44977,
+            "original_language": "hi",
+            "original_title": "धूम ३",
+            "overview": "To avenge his father's death, a circus entertainer trained in magic and acrobatics robs banks to take down a corrupt bank owner. Two cops from Mumbai are assigned to the case.",
+            "popularity": 5.5207,
+            "poster_path": "/rUVTM5EQUQ2I0fcfE46AkvBYWae.jpg",
+            "release_date": "2013-12-19",
+            "title": "Dhoom 3",
+            "video": false,
+            "vote_average": 6.026,
+            "vote_count": 289
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/8lNbxRsGKzWdtLk6hKdB1z11pjE.jpg",
+            "genre_ids": [
+                35,
+                9648,
+                53
+            ],
+            "id": 1146210,
+            "original_language": "hi",
+            "original_title": "हाउसफ़ूल 5",
+            "overview": "A father writes his will — his son \"Jolly\" is going to get it all. But who is Jolly? The comedy unfolds as different people pose as the \"real\" Jolly on a cruise celebrating the father's birthday — where a murder takes place.",
+            "popularity": 5.3614,
+            "poster_path": "/iGvGkVOfsooO0ZBrhN5i6zXYUCy.jpg",
+            "release_date": "2025-06-05",
+            "title": "Housefull 5",
+            "video": false,
+            "vote_average": 5.4,
+            "vote_count": 28
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/8ODibBEc0ETUGfJFkqEg7BXCM8o.jpg",
+            "genre_ids": [
+                35,
+                10749
+            ],
+            "id": 58051,
+            "original_language": "hi",
+            "original_title": "हाउसफुल",
+            "overview": "Believing himself to be a jinx and bringing bad luck upon himself and others, a man attempts to find true love, but ends up in very complicated relationships.",
+            "popularity": 3.471,
+            "poster_path": "/koPiIQ7evC5rer6modUDxoZjYV.jpg",
+            "release_date": "2010-04-30",
+            "title": "Housefull",
+            "video": false,
+            "vote_average": 5.6,
+            "vote_count": 130
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/27VV3Myqy6N3tH4K7LJZdj687SK.jpg",
+            "genre_ids": [
+                35,
+                10749
+            ],
+            "id": 85052,
+            "original_language": "hi",
+            "original_title": "हाउसफुल २",
+            "overview": "A comedy of errors wherein four men help each other to fool their prospective father-in-laws creating a cascade of confusion and mayhem.",
+            "popularity": 3.4879,
+            "poster_path": "/y6L3GpfXWqfO7COtUyiEeACH35G.jpg",
+            "release_date": "2012-04-05",
+            "title": "Housefull 2",
+            "video": false,
+            "vote_average": 5.5,
+            "vote_count": 115
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/p18H6kQKlPajCUI5lGJICBHxVqJ.jpg",
+            "genre_ids": [
+                35,
+                10749
+            ],
+            "id": 391779,
+            "original_language": "hi",
+            "original_title": "हाउसफुल 3",
+            "overview": "A father doesn't want his three daughters to get married. Now, it's up to three men to try to and convince the father that they're a good fit for his daughters.",
+            "popularity": 2.4916,
+            "poster_path": "/6Udose5F7a9SdNf8HlNMovtDMM9.jpg",
+            "release_date": "2016-06-03",
+            "title": "Housefull 3",
+            "video": false,
+            "vote_average": 5.1,
+            "vote_count": 102
+        },
+       
+        {
+            "adult": false,
+            "backdrop_path": "/6phj6ztvDBU9Fn6MMONhCpqa6mM.jpg",
+            "genre_ids": [
+                35,
+                18,
+                10749
+            ],
+            "id": 611748,
+            "original_language": "hi",
+            "original_title": "Housefull 4",
+            "overview": "Three couples who get separated from each other due to an evil ploy, reincarnate after 600 years and meet each other as history repeats itself again and their respective partners get mixed up this time.",
+            "popularity": 3.3186,
+            "poster_path": "/aCJOZzWV6cpZ9p9tmfEzXq4EqN8.jpg",
+            "release_date": "2019-10-25",
+            "title": "Housefull 4",
+            "video": false,
+            "vote_average": 5.8,
+            "vote_count": 89
+        }
+    ],
+    "total_pages": 1,
+    "total_results": 14
+}

@@ -1,0 +1,176 @@
+{
+    "page": 1,
+    "results": [
+        {
+            "adult": false,
+            "backdrop_path": "/ePZlAKUi1JGCLZcUZS6UbDWS2VN.jpg",
+            "genre_ids": [
+                35
+            ],
+            "id": 1668,
+            "origin_country": [
+                "US"
+            ],
+            "original_language": "en",
+            "original_name": "Friends",
+            "overview": "Six young people from New York City, on their own and struggling to survive in the real world, find the companionship, comfort and support they get from each other to be the perfect antidote to the pressures of life.",
+            "popularity": 64.0565,
+            "poster_path": "/2koX1xLkpTQM4IZebYvKysFW1Nh.jpg",
+            "first_air_date": "1994-09-22",
+            "name": "Friends",
+            "vote_average": 8.4,
+            "vote_count": 8579
+        },
+       
+        {
+            "adult": false,
+            "backdrop_path": null,
+            "genre_ids": [
+                18
+            ],
+            "id": 20813,
+            "origin_country": [
+                "US"
+            ],
+            "original_language": "en",
+            "original_name": "Friends",
+            "overview": "Friends is a short-lived kids-oriented drama that aired in the spring of 1979. The series, which was produced by Aaron Spelling and aired on ABC, starred Charlie Aiken, Jill Whelan, and Jarrod Johnson as three Southern Californian 11-year-olds. Karen Morrow also appeared. Only five one-hour episodes were produced before the series was cancelled.",
+            "popularity": 1.1228,
+            "poster_path": "/ogRWiG361aZsRe0M35iou9E7nq6.jpg",
+            "first_air_date": "1979-03-25",
+            "name": "Friends",
+            "vote_average": 5.0,
+            "vote_count": 1
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/bi0nnsQOE4ug5ok4eyZhROs8PPW.jpg",
+            "genre_ids": [
+                10751,
+                16,
+                10759,
+                10762
+            ],
+            "id": 33749,
+            "origin_country": [
+                "CA",
+                "GB",
+                "US"
+            ],
+            "original_language": "en",
+            "original_name": "Friends and Heroes",
+            "overview": "Friends and Heroes is a Christian children's program that airs on TBN, Smile of a Child TV, and was also shown on BBC TV. The show is both traditionally animated and computer animated. It takes place from 69 - 71 AD. There are three series each of 13 Episodes: Series 1 is set in Alexandria, Egypt; Series 2 in Jerusalem and Series 3 in Rome. The series was created by Brian D. Brown and Eric J. Danenberg, who also worked on The Storykeepers.",
+            "popularity": 1.806,
+            "poster_path": "/gOSRh3fMV18SzQzAWDEwTDraa0R.jpg",
+            "first_air_date": "2007-03-12",
+            "name": "Friends and Heroes",
+            "vote_average": 10.0,
+            "vote_count": 2
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/2OMB0ynKlyIenMJWI2Dy9IWT4c.jpg",
+            "genre_ids": [
+                10765,
+                18,
+                10759
+            ],
+            "id": 1399,
+            "origin_country": [
+                "US"
+            ],
+            "original_language": "en",
+            "original_name": "Game of Thrones",
+            "overview": "Seven noble families fight for control of the mythical land of Westeros. Friction between the houses leads to full-scale war. All while a very ancient evil awakens in the farthest north. Amidst the war, a neglected military order of misfits, the Night's Watch, is all that stands between the realms of men and icy horrors beyond.",
+            "popularity": 119.6788,
+            "poster_path": "/1XS1oqL89opfnbLl8WnZY1O1uJx.jpg",
+            "first_air_date": "2011-04-17",
+            "name": "Game of Thrones",
+            "vote_average": 8.458,
+            "vote_count": 25541
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/q0EfVHIIxCyCqUKNEvtGqx4iZig.jpg",
+            "genre_ids": [
+                10767
+            ],
+            "id": 206584,
+            "origin_country": [
+                "US"
+            ],
+            "original_language": "en",
+            "original_name": "The Game of Thrones Reunion Hosted by Conan O'Brien",
+            "overview": "A two-part reunion show with cast members from the final season including Kit Harington, Emilia Clarke, Sophie Turner and more, as well as previously departed fan-favorites like Sean Bean, Jason Momoa, Mark Addy and others.",
+            "popularity": 0.9064,
+            "poster_path": "/xwq2TALKkuCujBnUTpr57wDO61y.jpg",
+            "first_air_date": "2021-04-05",
+            "name": "The Game of Thrones Reunion Hosted by Conan O'Brien",
+            "vote_average": 8.4,
+            "vote_count": 9
+        },
+        {
+            "adult": false,
+            "backdrop_path": null,
+            "genre_ids": [],
+            "id": 300585,
+            "origin_country": [
+                "ES"
+            ],
+            "original_language": "es",
+            "original_name": "Game of Thrones Culinary",
+            "overview": "",
+            "popularity": 0.0387,
+            "poster_path": "/fQ5nlPYJSyB4i9fNScfviqNTTY1.jpg",
+            "first_air_date": "2025-03-18",
+            "name": "Game of Thrones Culinary",
+            "vote_average": 0.0,
+            "vote_count": 0
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/etj8E2o0Bud0HkONVQPjyCkIvpv.jpg",
+            "genre_ids": [
+                10765,
+                18,
+                10759
+            ],
+            "id": 94997,
+            "origin_country": [
+                "US"
+            ],
+            "original_language": "en",
+            "original_name": "House of the Dragon",
+            "overview": "The Targaryen dynasty is at the absolute apex of its power, with more than 15 dragons under their yoke. Most empires crumble from such heights. In the case of the Targaryens, their slow fall begins when King Viserys breaks with a century of tradition by naming his daughter Rhaenyra heir to the Iron Throne. But when Viserys later fathers a son, the court is shocked when Rhaenyra retains her status as his heir, and seeds of division sow friction across the realm.",
+            "popularity": 35.4568,
+            "poster_path": "/oxmdHR5Ka28HAJuMmS2hk5K6QQY.jpg",
+            "first_air_date": "2022-08-21",
+            "name": "House of the Dragon",
+            "vote_average": 8.3,
+            "vote_count": 5484
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/oGXuxNzrZ9QNuYYd7N4Zb9V6YKl.jpg",
+            "genre_ids": [
+                18,
+                10765
+            ],
+            "id": 224372,
+            "origin_country": [
+                "US"
+            ],
+            "original_language": "en",
+            "original_name": "A Knight of the Seven Kingdoms: The Hedge Knight",
+            "overview": "Set in an age when the Targaryen line still holds the Iron Throne and the memory of the last dragon has not yet passed from living memory, great destinies, powerful foes and dangerous exploits all await these improbable and incomparable friends.",
+            "popularity": 2.191,
+            "poster_path": "/eoe5ZSO0D3F0pSrNseujhTBfC78.jpg",
+            "first_air_date": "",
+            "name": "A Knight of the Seven Kingdoms: The Hedge Knight",
+            "vote_average": 0.0,
+            "vote_count": 0
+        }
+    ],
+    "total_pages": 1,
+    "total_results": 8
+}
