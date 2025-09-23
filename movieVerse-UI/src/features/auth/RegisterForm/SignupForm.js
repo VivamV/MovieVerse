@@ -84,6 +84,9 @@ const SignupForm = () => {
   return (
     <div className="signup-container">
       <div className="signup-box">
+         <div className="startup-notice">
+          Note: This site is deployed on on free platforms (Render,Vercel), so it may take a few seconds to start if idle.
+        </div>
         <div className="brand-name"> MovieVerse</div>
         <h2>Register for an account</h2>
 

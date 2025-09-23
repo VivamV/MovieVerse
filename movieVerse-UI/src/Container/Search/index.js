@@ -6,23 +6,41 @@ import axios from 'axios';
 import CardMoviesComponents from '../../Components/CardMovies';
 import PaginationComponent from '../../Components/Pagination';
 import SearchBarCardComponents from '../../Components/SearchBox';
+import searchMoviesFallback from '../../data/searchMoviesFallback.json';
+import searchTVSeriesFallback from '../../data/searchTVSeriesFallback.json';
 
 const  SearchContainer = ()=>{
     const [content, setContent] = useState([]);
     const [pageno, setPageno] = useState(1);
     const [paginationno, setPaginationno] = useState(0);
 
-    const [searchValue, setSearchValue] = useState('crime');
+    const [searchValue, setSearchValue] = useState('dhoom');
     const [typeValue, setTypeValue] = useState('movie');
     const API_KEY = process.env.REACT_APP_NOT_SECRET_CODE;
 
     
     
     const GetDataTrending = async ()=>{
-        
-        const {data} = await axios.get(`https://api.themoviedb.org/3/search/${typeValue}?api_key=${API_KEY}&page=${pageno}&language=en-US&query=${searchValue}&include_adult=false`);
-        setContent(data.results);
-        setPaginationno(data.total_pages);
+    try{
+       const {data} = await axios.get(`https://api.themoviedb.org/3/search/${typeValue}?api_key=${API_KEY}&page=${pageno}&language=en-US&query=${searchValue}&include_adult=false`);
+       setContent(data.results);
+       setPaginationno(data.total_pages);
+  } catch (error) {
+    console.error("TMDB Search API failed, using fallback data:", error.message);
+    if (typeValue === "movie") {
+      const filtered = searchMoviesFallback.results.filter((item) =>
+        item.title.toLowerCase().includes(searchValue.toLowerCase())
+      );
+      setContent(filtered);
+      setPaginationno(1);
+    } else {
+       const filteredTv = searchTVSeriesFallback.results.filter((item) =>
+        item.name.toLowerCase().includes(searchValue.toLowerCase())
+      );
+      setContent(filteredTv);
+      setPaginationno(1);
+    }
+  }
     }
 
     useEffect(()=>{

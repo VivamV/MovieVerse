@@ -34,7 +34,7 @@ const HeaderComponent = () => {
     { name: "Movies", link: "/movies" },
     { name: "Tv Series", link: "/series" },
     { name: "Search", link: "/search" },
-    {name :"StreamTesting",link:"/streamtesting"},
+    {name :"UploadedMovies",link:"/streamtesting"},
     { name: "Profile", link: `/profile/${userIdByToken}` },
   ];
 useEffect(() => {

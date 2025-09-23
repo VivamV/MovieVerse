@@ -1,0 +1,404 @@
+{
+    "page": 1,
+    "results": [
+        {
+            "adult": false,
+            "backdrop_path": "/1RgPyOhN4DRs225BGTlHJqCudII.jpg",
+            "genre_ids": [
+                16,
+                28,
+                14,
+                53
+            ],
+            "id": 1311031,
+            "original_language": "ja",
+            "original_title": "劇場版「鬼滅の刃」無限城編 第一章 猗窩座再来",
+            "overview": "The Demon Slayer Corps are drawn into the Infinity Castle, where Tanjiro, Nezuko, and the Hashira face terrifying Upper Rank demons in a desperate fight as the final battle against Muzan Kibutsuji begins.",
+            "popularity": 744.8851,
+            "poster_path": "/sUsVimPdA1l162FvdBIlmKBlWHx.jpg",
+            "release_date": "2025-07-18",
+            "title": "Demon Slayer: Kimetsu no Yaiba Infinity Castle",
+            "video": false,
+            "vote_average": 7.749,
+            "vote_count": 323
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/iZLqwEwUViJdSkGVjePGhxYzbDb.jpg",
+            "genre_ids": [
+                878,
+                53
+            ],
+            "id": 755898,
+            "original_language": "en",
+            "original_title": "War of the Worlds",
+            "overview": "Will Radford is a top analyst for Homeland Security who tracks potential threats through a mass surveillance program, until one day an attack by an unknown entity leads him to question whether the government is hiding something from him... and from the rest of the world.",
+            "popularity": 588.6161,
+            "poster_path": "/yvirUYrva23IudARHn3mMGVxWqM.jpg",
+            "release_date": "2025-07-29",
+            "title": "War of the Worlds",
+            "video": false,
+            "vote_average": 4.381,
+            "vote_count": 565
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/9KSboWOt09J72aMY4x8SS1IaOHK.jpg",
+            "genre_ids": [
+                16,
+                28,
+                12
+            ],
+            "id": 987400,
+            "original_language": "es",
+            "original_title": "Batman Azteca: Choque de imperios",
+            "overview": "In the time of the Aztec empire, tragedy strikes Yohualli Coatl when his father is murdered by Spanish conquistadors. To warn King Moctezuma and his high priest, Yoka, of imminent danger, Yohualli escapes to Tenochtitlán. There, he trains in the temple of the bat god Tzinacan with his mentor, developing equipment and weaponry to confront the Spanish invasion and avenge his father’s death. Along the way, he encounters key figures like the fierce Jaguar Woman and the conquistador Hernán Cortés.",
+            "popularity": 352.4158,
+            "poster_path": "/s0Mlo5w4INp3bUdsJo3RaSSMXWz.jpg",
+            "release_date": "2025-09-18",
+            "title": "Aztec Batman: Clash of Empires",
+            "video": false,
+            "vote_average": 8.071,
+            "vote_count": 42
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/fq8gLtrz1ByW3KQ2IM3RMZEIjsQ.jpg",
+            "genre_ids": [
+                27
+            ],
+            "id": 1038392,
+            "original_language": "en",
+            "original_title": "The Conjuring: Last Rites",
+            "overview": "Paranormal investigators Ed and Lorraine Warren take on one last terrifying case involving mysterious entities they must confront.",
+            "popularity": 327.3078,
+            "poster_path": "/29ES27icY5CzTcMhlz1H4SdQRod.jpg",
+            "release_date": "2025-09-03",
+            "title": "The Conjuring: Last Rites",
+            "video": false,
+            "vote_average": 6.575,
+            "vote_count": 400
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/mEW9XMgYDO6U0MJcIRqRuSwjzN5.jpg",
+            "genre_ids": [
+                28,
+                53
+            ],
+            "id": 1007734,
+            "original_language": "en",
+            "original_title": "Nobody 2",
+            "overview": "Former assassin Hutch Mansell takes his family on a nostalgic vacation to a small-town theme park, only to be pulled back into violence when they clash with a corrupt operator, a crooked sheriff, and a ruthless crime boss.",
+            "popularity": 300.0482,
+            "poster_path": "/svXVRoRSu6zzFtCzkRsjZS7Lqpd.jpg",
+            "release_date": "2025-08-13",
+            "title": "Nobody 2",
+            "video": false,
+            "vote_average": 7.238,
+            "vote_count": 625
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/wJ20rOZ1VgkCqv1jeOQB2Brny9k.jpg",
+            "genre_ids": [
+                27,
+                9648
+            ],
+            "id": 1078605,
+            "original_language": "en",
+            "original_title": "Weapons",
+            "overview": "When all but one child from the same class mysteriously vanish on the same night at exactly the same time, a community is left questioning who or what is behind their disappearance.",
+            "popularity": 299.354,
+            "poster_path": "/cpf7vsRZ0MYRQcnLWteD5jK9ymT.jpg",
+            "release_date": "2025-08-04",
+            "title": "Weapons",
+            "video": false,
+            "vote_average": 7.387,
+            "vote_count": 1512
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/or8y8JFF0vR3N9ap0Vdhf9tfTxQ.jpg",
+            "genre_ids": [
+                28,
+                80
+            ],
+            "id": 1028248,
+            "original_language": "en",
+            "original_title": "As Good as Dead",
+            "overview": "An ex-cop in self-imposed witness protection in Mexico becomes a target when a fight video of his apprentice goes viral.",
+            "popularity": 277.8702,
+            "poster_path": "/qqQPxxRQqfLrq0ubfDQCwhJHZ91.jpg",
+            "release_date": "2022-12-16",
+            "title": "As Good as Dead",
+            "video": false,
+            "vote_average": 6.321,
+            "vote_count": 67
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/mwI1OarF7BVWwn5O1Ng73UhyctP.jpg",
+            "genre_ids": [
+                27,
+                878,
+                53
+            ],
+            "id": 914215,
+            "original_language": "en",
+            "original_title": "Humane",
+            "overview": "In the wake of an environmental collapse that has forced humanity to shed 20% of its population, a family dinner erupts into chaos when a father's plan to enlist in the government's new euthanasia program goes horribly awry.",
+            "popularity": 217.9762,
+            "poster_path": "/ecOvKaoM1hwQbp0uTnULGrSV32e.jpg",
+            "release_date": "2024-04-26",
+            "title": "Humane",
+            "video": false,
+            "vote_average": 5.384,
+            "vote_count": 164
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/kzeBfhXMRWiykBsqoL3UbfaM0S.jpg",
+            "genre_ids": [
+                35,
+                28,
+                80
+            ],
+            "id": 1035259,
+            "original_language": "en",
+            "original_title": "The Naked Gun",
+            "overview": "Only one man has the particular set of skills... to lead Police Squad and save the world: Lt. Frank Drebin Jr.",
+            "popularity": 208.4633,
+            "poster_path": "/rmwQ8GsdQ1M3LtemNWLErle2nBU.jpg",
+            "release_date": "2025-07-30",
+            "title": "The Naked Gun",
+            "video": false,
+            "vote_average": 6.696,
+            "vote_count": 719
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/eU7IfdWq8KQy0oNd4kKXS0QUR08.jpg",
+            "genre_ids": [
+                878,
+                12,
+                28
+            ],
+            "id": 1061474,
+            "original_language": "en",
+            "original_title": "Superman",
+            "overview": "Superman, a journalist in Metropolis, embarks on a journey to reconcile his Kryptonian heritage with his human upbringing as Clark Kent.",
+            "popularity": 200.0256,
+            "poster_path": "/wPLysNDLffQLOVebZQCbXJEv6E6.jpg",
+            "release_date": "2025-07-09",
+            "title": "Superman",
+            "video": false,
+            "vote_average": 7.487,
+            "vote_count": 3269
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/xSD0q1FiuZkvHuy7uscOLbmd1hR.jpg",
+            "genre_ids": [
+                12,
+                28,
+                14
+            ],
+            "id": 13494,
+            "original_language": "en",
+            "original_title": "Red Sonja",
+            "overview": "A young girl rises from the ashes of tragedy to become the most feared warrior woman of all time: the She-Devil with a Sword.",
+            "popularity": 182.4184,
+            "poster_path": "/iuN0GTmdn8pFzs4x0xTgoahwhDN.jpg",
+            "release_date": "2025-07-31",
+            "title": "Red Sonja",
+            "video": false,
+            "vote_average": 5.7,
+            "vote_count": 93
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/538U9snNc2fpnOmYXAPUh3zn31H.jpg",
+            "genre_ids": [
+                28,
+                12,
+                53
+            ],
+            "id": 575265,
+            "original_language": "en",
+            "original_title": "Mission: Impossible - The Final Reckoning",
+            "overview": "Ethan Hunt and team continue their search for the terrifying AI known as the Entity — which has infiltrated intelligence networks all over the globe — with the world's governments and a mysterious ghost from Hunt's past on their trail. Joined by new allies and armed with the means to shut the Entity down for good, Hunt is in a race against time to prevent the world as we know it from changing forever.",
+            "popularity": 174.6469,
+            "poster_path": "/z53D72EAOxGRqdr7KXXWp9dJiDe.jpg",
+            "release_date": "2025-05-17",
+            "title": "Mission: Impossible - The Final Reckoning",
+            "video": false,
+            "vote_average": 7.286,
+            "vote_count": 1767
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/ZtcGMc204JsNqfjS9lU6udRgpo.jpg",
+            "genre_ids": [
+                28,
+                18
+            ],
+            "id": 911430,
+            "original_language": "en",
+            "original_title": "F1",
+            "overview": "Racing legend Sonny Hayes is coaxed out of retirement to lead a struggling Formula 1 team—and mentor a young hotshot driver—while chasing one more chance at glory.",
+            "popularity": 172.9168,
+            "poster_path": "/9PXZIUsSDh4alB80jheWX4fhZmy.jpg",
+            "release_date": "2025-06-25",
+            "title": "F1",
+            "video": false,
+            "vote_average": 7.823,
+            "vote_count": 2137
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/JMlVj6X2F1PuDz9OyHShThzpa2.jpg",
+            "genre_ids": [
+                28,
+                80,
+                53
+            ],
+            "id": 1369679,
+            "original_language": "en",
+            "original_title": "Get Fast",
+            "overview": "When The Thief’s partner is kidnapped after stealing millions in cash from a merciless drug lord named Nushi, he reluctantly teams up with an angst-ridden orphan to rescue him. Nushi enlists her most trusted hitman, The Cowboy, a lovable charmer who’s quick with his guns, to track down the Thief. Guns, cars, and explosions will give the newfound partners a head start, but how long will they be able to keep it up?",
+            "popularity": 168.9318,
+            "poster_path": "/tDpTR7xhHu9cz1X4JAIRFwXyf6U.jpg",
+            "release_date": "2024-12-12",
+            "title": "Get Fast",
+            "video": false,
+            "vote_average": 6.24,
+            "vote_count": 25
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/zNriRTr0kWwyaXPzdg1EIxf0BWk.jpg",
+            "genre_ids": [
+                878,
+                12,
+                28
+            ],
+            "id": 1234821,
+            "original_language": "en",
+            "original_title": "Jurassic World Rebirth",
+            "overview": "Five years after the events of Jurassic World Dominion, covert operations expert Zora Bennett is contracted to lead a skilled team on a top-secret mission to secure genetic material from the world's three most massive dinosaurs. When Zora's operation intersects with a civilian family whose boating expedition was capsized, they all find themselves stranded on an island where they come face-to-face with a sinister, shocking discovery that's been hidden from the world for decades.",
+            "popularity": 167.2296,
+            "poster_path": "/1RICxzeoNCAO5NpcRMIgg1XT6fm.jpg",
+            "release_date": "2025-07-01",
+            "title": "Jurassic World Rebirth",
+            "video": false,
+            "vote_average": 6.392,
+            "vote_count": 2136
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/w3Bi0wygeFQctn6AqFTwhGNXRwL.jpg",
+            "genre_ids": [
+                16,
+                35,
+                14,
+                10402
+            ],
+            "id": 803796,
+            "original_language": "en",
+            "original_title": "KPop Demon Hunters",
+            "overview": "When K-pop superstars Rumi, Mira and Zoey aren't selling out stadiums, they're using their secret powers to protect their fans from supernatural threats.",
+            "popularity": 166.6286,
+            "poster_path": "/22AouvwlhlXbe3nrFcjzL24bvWH.jpg",
+            "release_date": "2025-06-20",
+            "title": "KPop Demon Hunters",
+            "video": false,
+            "vote_average": 8.311,
+            "vote_count": 1461
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/uBB1aMga5ngZxsUQL5k36zeW3pB.jpg",
+            "genre_ids": [
+                27
+            ],
+            "id": 1242011,
+            "original_language": "en",
+            "original_title": "Together",
+            "overview": "With a move to the countryside already testing the limits of a couple's relationship, a supernatural encounter begins an extreme transformation of their love, their lives, and their flesh.",
+            "popularity": 164.541,
+            "poster_path": "/m52XidzKx94bKlToZfEXUnL3pdy.jpg",
+            "release_date": "2025-07-28",
+            "title": "Together",
+            "video": false,
+            "vote_average": 7.174,
+            "vote_count": 471
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/vHTFrcqJoCi1is3XN0PZe2LSnI2.jpg",
+            "genre_ids": [
+                14,
+                10751,
+                28,
+                12
+            ],
+            "id": 1087192,
+            "original_language": "en",
+            "original_title": "How to Train Your Dragon",
+            "overview": "On the rugged isle of Berk, where Vikings and dragons have been bitter enemies for generations, Hiccup stands apart, defying centuries of tradition when he befriends Toothless, a feared Night Fury dragon. Their unlikely bond reveals the true nature of dragons, challenging the very foundations of Viking society.",
+            "popularity": 159.4448,
+            "poster_path": "/q5pXRYTycaeW6dEgsCrd4mYPmxM.jpg",
+            "release_date": "2025-06-06",
+            "title": "How to Train Your Dragon",
+            "video": false,
+            "vote_average": 8.0,
+            "vote_count": 1932
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/rzGHVq2BCMwjp93QaKYoLPSaSrp.jpg",
+            "genre_ids": [
+                28,
+                14,
+                12,
+                9648
+            ],
+            "id": 506763,
+            "original_language": "zh",
+            "original_title": "狄仁杰之四大天王",
+            "overview": "Dee, the detective serving Chinese empress Wu Zetian, is called upon to investigate a series of strange events in Loyang, including the appearance of mysterious warriors wearing Chiyou ghost masks, foxes that speak human language and the pillar sculptures in the palace coming alive.",
+            "popularity": 158.5101,
+            "poster_path": "/nZ3XTA5ZlGOj92jRBSYglW8r9QY.jpg",
+            "release_date": "2018-07-27",
+            "title": "Detective Dee: The Four Heavenly Kings",
+            "video": false,
+            "vote_average": 6.226,
+            "vote_count": 199
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/6nCy4OrV7gxhDc3lBSUxkNALPej.jpg",
+            "genre_ids": [
+                28,
+                36,
+                18,
+                12,
+                10752
+            ],
+            "id": 1051486,
+            "original_language": "en",
+            "original_title": "Stockholm Bloodbath",
+            "overview": "In 1520, the notorious and power-hungry Danish King Christian II is determined to seize the Swedish crown from Sten Sture, no matter what it takes. Meanwhile, sisters Freja and Anne make a solemn promise to seek revenge on the men who brutally murdered their family. Everything comes to a head in the heart of Stockholm, where the sisters are drawn into a ruthless political struggle between Sweden and Denmark that culminates in a mass execution, presided over by the mad King \"Christian the Tyrant,\" known as the Stockholm Bloodbath.",
+            "popularity": 149.8992,
+            "poster_path": "/tzXOB8nxO70SfSbOhrYcY94x6MI.jpg",
+            "release_date": "2024-01-19",
+            "title": "Stockholm Bloodbath",
+            "video": false,
+            "vote_average": 6.333,
+            "vote_count": 33
+        }
+    ],
+    "total_pages": 1,
+    "total_results": 19
+}

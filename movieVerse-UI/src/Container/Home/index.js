@@ -5,6 +5,7 @@ import Col from "react-bootstrap/Col";
 import axios from "axios";
 import CardMoviesComponents from "../../Components/CardMovies";
 import PaginationComponent from "../../Components/Pagination";
+import homePageFallback from "../../data/homePageFallback.json";
 
 const HomeContainer = () => {
   const [content, setContent] = useState([]);
@@ -13,11 +14,17 @@ const HomeContainer = () => {
   const API_KEY = process.env.REACT_APP_NOT_SECRET_CODE;
 
   const GetDataTrending = async () => {
+    try{
     const { data } = await axios.get(
       `https://api.themoviedb.org/3/trending/all/day?api_key=${API_KEY}&page=${pageno}`
     );
     setContent(data.results);
     setPaginationno(data.total_pages);
+  } catch (error) {
+    console.error("TMDB API failed, using fallback data:", error.message);
+    setContent(homePageFallback.results); 
+    setPaginationno(homePageFallback.total_pages);
+  }
   };
 
   useEffect(() => {

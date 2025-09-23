@@ -85,7 +85,7 @@ const StreamTesting = () => {
         <Row>
           <Col className="col-12">
             <section>
-              <h1 className="txtCenter">Trending Stream Series</h1>
+              <h1 className="txtCenter">Uplaoded Movies</h1>
             </section>
           </Col>
         </Row>

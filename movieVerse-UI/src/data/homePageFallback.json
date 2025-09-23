@@ -1,0 +1,438 @@
+{
+    "page": 1,
+    "results": [
+        {
+            "adult": false,
+            "backdrop_path": "/s94NjfKkcSczZ1FembwmQZwsuwY.jpg",
+            "id": 617126,
+            "title": "The Fantastic 4: First Steps",
+            "original_title": "The Fantastic 4: First Steps",
+            "overview": "Against the vibrant backdrop of a 1960s-inspired, retro-futuristic world, Marvel's First Family is forced to balance their roles as heroes with the strength of their family bond, while defending Earth from a ravenous space god called Galactus and his enigmatic Herald, Silver Surfer.",
+            "poster_path": "/x26MtUlwtWD26d0G0FXcppxCJio.jpg",
+            "media_type": "movie",
+            "original_language": "en",
+            "genre_ids": [
+                878,
+                12
+            ],
+            "popularity": 108.3034,
+            "release_date": "2025-07-23",
+            "video": false,
+            "vote_average": 7.189,
+            "vote_count": 1284
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/j7KqDRzjbvIjDv7cdHz9G3ZYEQy.jpg",
+            "id": 1233413,
+            "title": "Sinners",
+            "original_title": "Sinners",
+            "overview": "Trying to leave their troubled lives behind, twin brothers return to their hometown to start again, only to discover that an even greater evil is waiting to welcome them back.",
+            "poster_path": "/4CkZl1LK6a5rXBqJB2ZP77h3N5i.jpg",
+            "media_type": "movie",
+            "original_language": "en",
+            "genre_ids": [
+                27,
+                28,
+                53
+            ],
+            "popularity": 41.2788,
+            "release_date": "2025-04-16",
+            "video": false,
+            "vote_average": 7.5,
+            "vote_count": 2560
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/wJ20rOZ1VgkCqv1jeOQB2Brny9k.jpg",
+            "id": 1078605,
+            "title": "Weapons",
+            "original_title": "Weapons",
+            "overview": "When all but one child from the same class mysteriously vanish on the same night at exactly the same time, a community is left questioning who or what is behind their disappearance.",
+            "poster_path": "/cpf7vsRZ0MYRQcnLWteD5jK9ymT.jpg",
+            "media_type": "movie",
+            "original_language": "en",
+            "genre_ids": [
+                27,
+                9648
+            ],
+            "popularity": 263.252,
+            "release_date": "2025-08-04",
+            "video": false,
+            "vote_average": 7.4,
+            "vote_count": 1515
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/5VY1i8ET5xUeg0zEEwNjFfWYJJF.jpg",
+            "id": 977294,
+            "title": "Tin Soldier",
+            "original_title": "Tin Soldier",
+            "overview": "An ex-special forces operative seeks revenge against a cult leader who has corrupted his former comrades, the Shinjas. This leader, known as The Bokushi, promises veterans a purpose and protection, but is revealed to be a destructive influence. The ex-soldier, Nash Cavanaugh, joins forces with military operative Emmanuel Ashburn to infiltrate the Bokushi's fortress and expose his reign of terror",
+            "poster_path": "/lFFDrFLXywFhy6khHes1LCFVMsL.jpg",
+            "media_type": "movie",
+            "original_language": "en",
+            "genre_ids": [
+                28,
+                53
+            ],
+            "popularity": 9.0141,
+            "release_date": "2025-05-22",
+            "video": false,
+            "vote_average": 4.7,
+            "vote_count": 79
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/hZkgoQYus5vegHoetLkCJzb17zJ.jpg",
+            "id": 550,
+            "title": "Fight Club",
+            "original_title": "Fight Club",
+            "overview": "A ticking-time-bomb insomniac and a slippery soap salesman channel primal male aggression into a shocking new form of therapy. Their concept catches on, with underground \"fight clubs\" forming in every town, until an eccentric gets in the way and ignites an out-of-control spiral toward oblivion.",
+            "poster_path": "/jSziioSwPVrOy9Yow3XhWIBDjq1.jpg",
+            "media_type": "movie",
+            "original_language": "en",
+            "genre_ids": [
+                18,
+                53
+            ],
+            "popularity": 37.1964,
+            "release_date": "1999-10-15",
+            "video": false,
+            "vote_average": 8.438,
+            "vote_count": 30765
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/nB0QxPmgIFWxuwKorlJGOQdFEaa.jpg",
+            "id": 1054867,
+            "title": "One Battle After Another",
+            "original_title": "One Battle After Another",
+            "overview": "When their evil nemesis resurfaces after 16 years, a band of ex-revolutionaries reunite to rescue the daughter of one of their own.",
+            "poster_path": "/m1jFoahEbeQXtx4zArT2FKdbNIj.jpg",
+            "media_type": "movie",
+            "original_language": "en",
+            "genre_ids": [
+                28,
+                80,
+                53
+            ],
+            "popularity": 58.9108,
+            "release_date": "2025-09-23",
+            "video": false,
+            "vote_average": 9.2,
+            "vote_count": 6
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/mNHRGO1gFpR2CYZdANe72kcKq7G.jpg",
+            "id": 153312,
+            "name": "Tulsa King",
+            "original_name": "Tulsa King",
+            "overview": "Just after he is released from prison after 25 years, New York mafia capo Dwight “The General” Manfredi is unceremoniously exiled by his boss to set up shop in Tulsa, Okla. Realizing that his mob family may not have his best interests in mind, Dwight slowly builds a “crew” from a group of unlikely characters, to help him establish a new criminal empire in a place that to him might as well be another planet.",
+            "poster_path": "/rOYLWCdAifpUtPlTf1WHxyaxeMt.jpg",
+            "media_type": "tv",
+            "original_language": "en",
+            "genre_ids": [
+                80,
+                18,
+                35
+            ],
+            "popularity": 132.9502,
+            "first_air_date": "2022-11-13",
+            "vote_average": 8.3,
+            "vote_count": 2233,
+            "origin_country": [
+                "US"
+            ]
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/eU7IfdWq8KQy0oNd4kKXS0QUR08.jpg",
+            "id": 1061474,
+            "title": "Superman",
+            "original_title": "Superman",
+            "overview": "Superman, a journalist in Metropolis, embarks on a journey to reconcile his Kryptonian heritage with his human upbringing as Clark Kent.",
+            "poster_path": "/wPLysNDLffQLOVebZQCbXJEv6E6.jpg",
+            "media_type": "movie",
+            "original_language": "en",
+            "genre_ids": [
+                878,
+                12,
+                28
+            ],
+            "popularity": 241.294,
+            "release_date": "2025-07-09",
+            "video": false,
+            "vote_average": 7.5,
+            "vote_count": 3271
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/1RgPyOhN4DRs225BGTlHJqCudII.jpg",
+            "id": 1311031,
+            "title": "Demon Slayer: Kimetsu no Yaiba Infinity Castle",
+            "original_title": "劇場版「鬼滅の刃」無限城編 第一章 猗窩座再来",
+            "overview": "The Demon Slayer Corps are drawn into the Infinity Castle, where Tanjiro, Nezuko, and the Hashira face terrifying Upper Rank demons in a desperate fight as the final battle against Muzan Kibutsuji begins.",
+            "poster_path": "/sUsVimPdA1l162FvdBIlmKBlWHx.jpg",
+            "media_type": "movie",
+            "original_language": "ja",
+            "genre_ids": [
+                16,
+                28,
+                14,
+                53
+            ],
+            "popularity": 668.2088,
+            "release_date": "2025-07-18",
+            "video": false,
+            "vote_average": 7.8,
+            "vote_count": 326
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/mEW9XMgYDO6U0MJcIRqRuSwjzN5.jpg",
+            "id": 1007734,
+            "title": "Nobody 2",
+            "original_title": "Nobody 2",
+            "overview": "Former assassin Hutch Mansell takes his family on a nostalgic vacation to a small-town theme park, only to be pulled back into violence when they clash with a corrupt operator, a crooked sheriff, and a ruthless crime boss.",
+            "poster_path": "/svXVRoRSu6zzFtCzkRsjZS7Lqpd.jpg",
+            "media_type": "movie",
+            "original_language": "en",
+            "genre_ids": [
+                28,
+                53
+            ],
+            "popularity": 269.0949,
+            "release_date": "2025-08-13",
+            "video": false,
+            "vote_average": 7.24,
+            "vote_count": 626
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/zfaZ8m6NHzylqTumf94mDGtQwKM.jpg",
+            "id": 1265344,
+            "title": "Swiped",
+            "original_title": "Swiped",
+            "overview": "Whitney Wolfe uses extraordinary grit and ingenuity to break into the male-dominated tech industry.",
+            "poster_path": "/znxBfe14cefxx5Lu1tgNzggJagt.jpg",
+            "media_type": "movie",
+            "original_language": "en",
+            "genre_ids": [
+                36,
+                18
+            ],
+            "popularity": 138.0468,
+            "release_date": "2025-09-09",
+            "video": false,
+            "vote_average": 6.72,
+            "vote_count": 41
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/vgnoBSVzWAV9sNQUORaDGvDp7wx.jpg",
+            "id": 157336,
+            "title": "Interstellar",
+            "original_title": "Interstellar",
+            "overview": "The adventures of a group of explorers who make use of a newly discovered wormhole to surpass the limitations on human space travel and conquer the vast distances involved in an interstellar voyage.",
+            "poster_path": "/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg",
+            "media_type": "movie",
+            "original_language": "en",
+            "genre_ids": [
+                12,
+                18,
+                878
+            ],
+            "popularity": 76.5163,
+            "release_date": "2014-11-05",
+            "video": false,
+            "vote_average": 8.461,
+            "vote_count": 37884
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/cyqKNRLFKCN9Y28ln38hLMESGEj.jpg",
+            "id": 245648,
+            "name": "Billionaires' Bunker",
+            "original_name": "El refugio atómico",
+            "overview": "When a group of billionaires takes shelter in a luxury bunker, an old feud between two families resurfaces amid an unprecedented global conflict.",
+            "poster_path": "/hNVb60dPG34wYjazGgFolJhqfxp.jpg",
+            "media_type": "tv",
+            "original_language": "es",
+            "genre_ids": [
+                10765,
+                18
+            ],
+            "popularity": 137.3826,
+            "first_air_date": "2025-09-19",
+            "vote_average": 6.3,
+            "vote_count": 15,
+            "origin_country": [
+                "ES"
+            ]
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/ScaVfT5IkwVC3Edhmxqyl0GbK0.jpg",
+            "id": 205715,
+            "name": "Gen V",
+            "original_name": "Gen V",
+            "overview": "At America's only college for superheroes, gifted students put their moral boundaries to the test, competing for the university's top ranking, and a chance to join The Seven, Vought International's elite superhero team. When the school's dark secrets come to light, they must decide what kind of heroes they want to become.",
+            "poster_path": "/tEv842Nd5uMSavURG4aQO1pNtst.jpg",
+            "media_type": "tv",
+            "original_language": "en",
+            "genre_ids": [
+                10759,
+                18,
+                10765
+            ],
+            "popularity": 128.8344,
+            "first_air_date": "2023-09-28",
+            "vote_average": 7.715,
+            "vote_count": 1123,
+            "origin_country": [
+                "US"
+            ]
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/a6bItEVaxgphpMswho1wVRerv4r.jpg",
+            "id": 7451,
+            "title": "xXx",
+            "original_title": "xXx",
+            "overview": "Xander Cage is your standard adrenaline junkie with no fear and a lousy attitude. When the US Government \"recruits\" him to go on a mission, he's not exactly thrilled. His mission: to gather information on an organization that may just be planning the destruction of the world, led by the nihilistic Yorgi.",
+            "poster_path": "/xeEw3eLeSFmJgXZzmF2Efww0q3s.jpg",
+            "media_type": "movie",
+            "original_language": "en",
+            "genre_ids": [
+                28,
+                12,
+                53,
+                80
+            ],
+            "popularity": 125.5329,
+            "release_date": "2002-08-09",
+            "video": false,
+            "vote_average": 5.961,
+            "vote_count": 4552
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/4Mt7WHox67uJ1yErwTBFcV8KWgG.jpg",
+            "id": 37854,
+            "name": "One Piece",
+            "original_name": "ワンピース",
+            "overview": "Years ago, the fearsome Pirate King, Gol D. Roger was executed leaving a huge pile of treasure and the famous \"One Piece\" behind. Whoever claims the \"One Piece\" will be named the new King of the Pirates.\n\nMonkey D. Luffy, a boy who consumed a \"Devil Fruit,\" decides to follow in the footsteps of his idol, the pirate Shanks, and find the One Piece. It helps, of course, that his body has the properties of rubber and that he's surrounded by a bevy of skilled fighters and thieves to help him along the way.\n\nLuffy will do anything to get the One Piece and become King of the Pirates!",
+            "poster_path": "/cMD9Ygz11zjJzAovURpO75Qg7rT.jpg",
+            "media_type": "tv",
+            "original_language": "ja",
+            "genre_ids": [
+                10759,
+                35,
+                16
+            ],
+            "popularity": 24.2759,
+            "first_air_date": "1999-10-20",
+            "vote_average": 8.7,
+            "vote_count": 4988,
+            "origin_country": [
+                "JP"
+            ]
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/yGByIyqgJerCw7AAphTrTAlrdkJ.jpg",
+            "id": 1328803,
+            "title": "Prisoner of War",
+            "original_title": "Prisoner of War",
+            "overview": "British RAF Wing Commander James Wright is captured by the Japanese during WWII and forced to fight in brutal hand-to-hand combat. The Japanese soldiers get more than they bargained for when Wright’s years of martial arts training in Hong Kong prove him to be a formidable opponent.",
+            "poster_path": "/1XET89sjRm9mUuHXhGIlKTNd5uD.jpg",
+            "media_type": "movie",
+            "original_language": "en",
+            "genre_ids": [
+                28,
+                10752,
+                53,
+                36
+            ],
+            "popularity": 30.2643,
+            "release_date": "2025-09-19",
+            "video": false,
+            "vote_average": 6.1,
+            "vote_count": 10
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/biIBy2LPOOtGCgUYOls3dUEWU3v.jpg",
+            "id": 157239,
+            "name": "Alien: Earth",
+            "original_name": "Alien: Earth",
+            "overview": "When the mysterious deep space research vessel USCSS Maginot crash-lands on Earth, Wendy and a ragtag group of tactical soldiers make a fateful discovery that puts them face-to-face with the planet's greatest threat.",
+            "poster_path": "/yueXS3q8BtoWekcHOATFHicLl3e.jpg",
+            "media_type": "tv",
+            "original_language": "en",
+            "genre_ids": [
+                10765,
+                18
+            ],
+            "popularity": 191.0212,
+            "first_air_date": "2025-08-12",
+            "vote_average": 7.687,
+            "vote_count": 451,
+            "origin_country": [
+                "US"
+            ]
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/l7rLHTBhCJ0Ub7ctAh9Vesx6ACK.jpg",
+            "id": 249039,
+            "name": "Black Rabbit",
+            "original_name": "Black Rabbit",
+            "overview": "A rising-star restaurateur is forced into New York's criminal underworld when his chaotic brother returns to town with loan sharks on his trail.",
+            "poster_path": "/4e9CraVtGY00jLP2YGwsuEtaIjR.jpg",
+            "media_type": "tv",
+            "original_language": "en",
+            "genre_ids": [
+                18,
+                80
+            ],
+            "popularity": 112.9306,
+            "first_air_date": "2025-09-18",
+            "vote_average": 7.0,
+            "vote_count": 26,
+            "origin_country": [
+                "GB",
+                "US"
+            ]
+        },
+        {
+            
+            "adult": false,
+            "backdrop_path": "/uNTrRKIOyKYISthoeizghtXPEOK.jpg",
+            "id": 240411,
+            "name": "Dan Da Dan",
+            "original_name": "ダンダダン",
+            "overview": "In a bet to prove whether ghosts or aliens exist, two high schoolers face terrifying paranormal threats, gain superpowers and maybe even fall in love?!",
+            "poster_path": "/6qfZAOEUFIrbUH3JvePclx1nXzz.jpg",
+            "media_type": "tv",
+            "original_language": "ja",
+            "genre_ids": [
+                16,
+                10759,
+                35,
+                10765
+            ],
+            "popularity": 96.5947,
+            "first_air_date": "2024-10-04",
+            "vote_average": 8.614,
+            "vote_count": 674,
+            "origin_country": [
+                "JP"
+            ]
+        }
+    ],
+    "total_pages": 1,
+    "total_results": 19
+}

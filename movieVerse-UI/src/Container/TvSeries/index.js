@@ -8,6 +8,7 @@ import PaginationComponent from '../../Components/Pagination';
 
 import LeftListBarComponent from '../../Components/LeftListBar';
 import useGenres from '../../Hooks/useGenres';
+import tvseriesPageFallback from '../../data/tvSeriesPageFallback.json';
 
 const  TvSeriesContainer = ()=>{
     const [content, setContent] = useState([]);
@@ -22,10 +23,23 @@ const  TvSeriesContainer = ()=>{
     
     const genreforURL = useGenres(selectedGenres)
     const GetDataTrending = async ()=>{
-        
+    try { 
+       
         const {data} = await axios.get(`https://api.themoviedb.org/3/discover/tv?api_key=${API_KEY}&page=${pageno}&with_genres=&language=en-US&with_genres=${genreforURL}`)
         setContent(data.results);
         setPaginationno(data.total_pages);
+    }
+        catch(error){
+          let filteredResults = tvseriesPageFallback.results;
+          if (genreforURL && String(genreforURL).length > 0) {
+          const selectedIds = String(genreforURL).split(",").map(Number); 
+          filteredResults = tvseriesPageFallback.results.filter((item) =>
+          item.genre_ids.some((gid) => selectedIds.includes(gid))
+       );
+      }
+      setContent(filteredResults);
+      setPaginationno(tvseriesPageFallback.total_pages);
+    }
     }
 
     useEffect(()=>{

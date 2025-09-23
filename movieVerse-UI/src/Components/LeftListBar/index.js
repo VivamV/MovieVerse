@@ -3,7 +3,8 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import './style.css';
 import axios from 'axios';
 import {BsFillXCircleFill } from "react-icons/bs";
-
+import moviesgenresListFallback from '../../data/moviesgenresListFallback.json';
+import tvSeriesgenresListFallback from '../../data/tvSeriesgenresListFallabck.json';
 const LeftListBarComponent = (
     {
         selectedGenres,
@@ -19,9 +20,18 @@ const LeftListBarComponent = (
     
 
     const GetDataList = async ()=>{
+        try
+       { 
         const {data:{genres}} = await axios.get(`https://api.themoviedb.org/3/genre/${type}/list?api_key=${API_KEY}&language=en-US`);
-       
+        
         setGenres(genres)
+    }
+        catch(error){
+            if(type==="movie")
+            setGenres(moviesgenresListFallback.genres);
+            else if(type==="tv"){}
+            setGenres(tvSeriesgenresListFallback.genres);
+        }
     }
     useEffect(()=>{
         
