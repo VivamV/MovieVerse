@@ -79,7 +79,7 @@ const LeftListBarComponent = (
                                 {item.name}
                             </ListGroup.Item>
                         )
-                    }) : 'Lading content...'
+                    }) : 'Loading content...'
                 }
             </ListGroup>
         </aside>

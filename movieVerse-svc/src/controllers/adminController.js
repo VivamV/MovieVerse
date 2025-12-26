@@ -152,7 +152,7 @@ export const saveVideoMetadata = async (req, res) => {
 };
 // export const convertVideo = async (req, res) => {
 //   const { originalFullName,movieId } = req.body;
-//   console.log("📥 Received file for conversion:", req.body);
+//   console.log(" Received file for conversion:", req.body);
 
 //   const inputS3Key = `uploads/${movieId}_${originalFullName}`;
 //   const tmpDir = os.tmpdir();
@@ -167,7 +167,7 @@ export const saveVideoMetadata = async (req, res) => {
 //       Key: inputS3Key,
 //     }).promise();
 //     fs.writeFileSync(inputPath, file.Body);
-//     console.log("✅ Video downloaded and saved locally:", inputPath);
+//     console.log(" Video downloaded and saved locally:", inputPath);
 
 //     // Step 2: Create output folder if not exists
 //     if (!fs.existsSync(outputFolder)) {
@@ -175,7 +175,7 @@ export const saveVideoMetadata = async (req, res) => {
 //     }
 
 // // Step into dash-output dir so all files go there
-// process.chdir(outputFolder); // ✅ now all output files are written here
+// process.chdir(outputFolder); //  now all output files are written here
 
 // await new Promise((resolve, reject) => {
 //   // ffmpeg(inputPath)
@@ -232,30 +232,30 @@ export const saveVideoMetadata = async (req, res) => {
 //     '-seg_duration 8',        // segment duration set to 8 seconds
 //     '-use_template 1',
 //     '-use_timeline 1',
-//             '-init_seg_name', 'init-$RepresentationID$.m4s',   // ✅ filename only
-//       '-media_seg_name', 'chunk-$RepresentationID$-$Number$.m4s', // ✅ filename only
+//             '-init_seg_name', 'init-$RepresentationID$.m4s',   //  filename only
+//       '-media_seg_name', 'chunk-$RepresentationID$-$Number$.m4s', //  filename only
 //     ])
-//     .output('output.mpd') // ✅ filename only
+//     .output('output.mpd') //  filename only
 //     .on('start', (cmdLine) => {
-//       console.log('🎬 FFmpeg command:', cmdLine);
+//       console.log(' FFmpeg command:', cmdLine);
 //     })
-//      .on('progress', (p) => console.log(`⏱️ Progress: ${p.timemark}`))
+//      .on('progress', (p) => console.log(`⏱ Progress: ${p.timemark}`))
 //     .on('end', () => {
-//       console.log('✅ FFmpeg finished successfully.');
+//       console.log(' FFmpeg finished successfully.');
 //       resolve();
 //     })
 //     .on('error', (err) => {
-//       console.error('❌ FFmpeg error:', err);
+//       console.error(' FFmpeg error:', err);
 //       reject(err);
 //     })
-//     .run(); // ✅ no { cwd }
+//     .run(); //  no { cwd }
 // });
 
-//     console.log("🎬 DASH conversion complete.");
+//     console.log(" DASH conversion complete.");
 
 //     // Step 4: Upload all files in outputFolder to S3
 //     const files = fs.readdirSync(outputFolder);
-//     console.log("📂 Files to upload:", files);
+//     console.log(" Files to upload:", files);
 
 //     await Promise.all(files.map(async (file) => {
 //       console.log("main chiz",file);
@@ -277,7 +277,7 @@ export const saveVideoMetadata = async (req, res) => {
 //       };
 //       console.log("upload params",uploadParams)
 //       const result = await s3.upload(uploadParams).promise();
-//       console.log(`✅ Uploaded: ${file} → ${result.Location}`);
+//       console.log(` Uploaded: ${file} → ${result.Location}`);
 //     }));
 
 //     // Step 5: Cleanup temp files
@@ -288,13 +288,13 @@ export const saveVideoMetadata = async (req, res) => {
 // // setTimeout(() => {
 // //   try {
 // //     fs.rmSync(outputFolder, { recursive: true, force: true });
-// //     console.log("🧹 Cleanup complete.");
+// //     console.log(" Cleanup complete.");
 // //   } catch (cleanupErr) {
-// //     console.error("⚠️ Cleanup failed:", cleanupErr);
+// //     console.error(" Cleanup failed:", cleanupErr);
 // //   }
 // // }, 2000); // wait 1 second
 
-//     // console.log("🧹 Cleanup complete.");
+//     // console.log(" Cleanup complete.");
 
 //     // Step 6: Respond to client
 
@@ -319,14 +319,14 @@ export const saveVideoMetadata = async (req, res) => {
 // //   { $set: { s3uploadProcessedLink: mpdUrl } }
 // // );
 
-// console.log("✅ s3uploadProcessedLink updated in DB.");
+// console.log(" s3uploadProcessedLink updated in DB.");
 //     res.status(200).json({
 //       message: 'Conversion and upload successful',
 //       mpdUrl: mpdUrl
 //     });
 
 //   } catch (err) {
-//     console.error('❌ Error during video conversion:', err);
+//     console.error(' Error during video conversion:', err);
 //     res.status(500).json({ error: 'Video conversion failed' });
 //   }
 // };
@@ -388,7 +388,7 @@ export const convertVideoJob = async (req, res) => {
     // });
     return res.status(200).json({ message: "ECS task started" });
   } catch (err) {
-    console.error("❌ Error in convertVideo:", err);
+    console.error(" Error in convertVideo:", err);
     res.status(500).json({ error: "Internal server error" });
   }
 };

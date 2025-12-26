@@ -179,7 +179,7 @@ const DetailsContainer = () => {
                   {credits && credits.length > 0 ? (
                     <DarkVariantExample data={credits} />
                   ) : (
-                    "Lading data..."
+                    "Loading data..."
                   )}
                 </Col>
               </Row>

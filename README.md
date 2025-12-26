@@ -1,48 +1,47 @@
-# 🎥 MovieVerse
+#  MovieVerse
 
 **MovieVerse** is a full-stack movie ticket booking application where users can browse movies, view theatres and shows, book tickets with seat selection, and more. It supports authentication, secure payment flow, Redis-based seat locking, and deployment-ready environments.
 
 ---
 
-## 🌐 Project Modules
+##  Project Modules
 
-### 🍿 Frontend – `movieVerse-UI`
+###  Frontend – `movieVerse-UI`
 - Built using **React.js** 
 - Communicates with backend via Axios.
 - Features user authentication, movie listing, seat selection, and filter/search capabilities.
 
-### 🎬 Backend – `movieVerse-svc`
+###  Backend – `movieVerse-svc`
 - Built with **Node.js + Express.js**
 - Handles JWT-based authentication, session cookies, MongoDB-based data storage, Redis-based seat locks, and more.
 
 ---
 
-## 🚀 Key Features
+##  Key Features
 
-- ✅ User registration, login & token-based authentication (JWT & refresh tokens)
-- 🎟️ Movie, Theatre, Show & Booking APIs
-- 🧠 Seat selection with Redis-based locking
+-  User registration, login & token-based authentication (JWT & refresh tokens)
+-  Movie, Theatre, Show & Booking APIs
+-  Seat selection with Redis-based locking
 -  Adaptive Streaming of Videos
-- 🔍 Movie search and filter
-- 🔐 Secure cookie management
-- 🔁 Environment support for INT & PROD
-- 🔄 API-based architecture for scalability
+-  Movie search and filter
+-  Secure cookie management
+-  Environment support for INT & PROD
+-  API-based architecture for scalability
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
-| Frontend                    | Backend                       |
+| Frontend                   | Backend                       |
 |----------------------------|-------------------------------|
 | React.js                   | Node.js, Express.js           |
 | React Router DOM           | MongoDB + Mongoose            |
-| Axios                      | Redis (Upstash/local)         |
-| Formik, Yup                | JWT Authentication            |
-| React Toastify             | Nodemailer                    |
+| Axios                      | Redis (Upstash)               |
+|                            | JWT Authentication            |
 
 ---
 
-## 💻 Run Locally
+##  Run Locally
 for backend 
 
 - cd movieVerse-svc
@@ -55,10 +54,13 @@ for frontend
 - npm install
 - npm start
 
-## 🗂️ Branch Strategy
+##  Branch Strategy
 develop – Base branch for all feature work
 
 prod – Production-ready deployment
+
+#  Testing credentials and Sample Working Video
+for testing credentials and sample working video->mail me at ->vpsingh1303@gmail.com
 
 ## Roadmap / Major Future Enhancements
 - Video Streaming of TV Shows(adaptive) more scalable
