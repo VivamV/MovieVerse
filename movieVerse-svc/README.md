@@ -1,8 +1,8 @@
-# 🎬 MovieVerse Service (Backend)
+#  MovieVerse Service (Backend)
 
 Node.js + Express-based backend for **MovieVerse** — a movie ticket booking app.
 
-## 🚀 Features
+##  Features
 
 - JWT-based authentication (secure, HTTP-only cookies)
 - Refresh token handling
@@ -11,15 +11,15 @@ Node.js + Express-based backend for **MovieVerse** — a movie ticket booking ap
 - MongoDB for persistent storage
 - Environment-based config (INT, PROD)
 
-## 📦 Tech Stack
+##  Tech Stack
 
 - Node.js
 - Express.js
 - MongoDB + Mongoose
-- Redis (Upstash or local)
+- Redis (Upstash )
 - JWT
 
-## 🔧 Environment Variables
+##  Environment Variables
 
 ```env
 # Basic server config
@@ -34,16 +34,16 @@ REFRESH_SECRET_KEY=your_refresh_secret
 MONGO_URL=your_mongodb_connection_string
 REDIS_URL=your_redis_connection_string
 
-# UI Domain
+# some other URLs
 MOVIEVERSE_UI_BASE_URL=https://your-ui-url
 ```
 
-## 💻 Run Locally
+##  Run Locally
 - cd movieVerse-svc
 - npm install
 - npm start
 
-## 🗂️ Branch Strategy
+##  Branch Strategy
 develop – Base branch for all feature work
 
 prod – Production-ready deployment only

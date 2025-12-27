@@ -49,7 +49,7 @@ export const ecsCallback = async (req, res) => {
     const { movieId, success, fileName } = req.body;
     console.log("req.body in ecs callback", req.body);
     if (!success) {
-      console.error(`❌ FFmpeg task failed for ${movieId}`);
+      console.error(` FFmpeg task failed for ${movieId}`);
 
       await StreamingMoviesModel.updateOne(
         { movieId },
@@ -78,7 +78,7 @@ export const ecsCallback = async (req, res) => {
 
     res.status(200).json({ message: "DB updated after ECS completion" });
   } catch (err) {
-    console.error("❌ Error during ecs callback:", err);
+    console.error(" Error during ecs callback:", err);
     res.status(500).json({ message: "Failed in ecs Callback" });
   }
 };
